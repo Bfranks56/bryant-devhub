@@ -1,6 +1,33 @@
 # Add files here to ignore them from prettier formatting
+
+# Build outputs
 /dist
+/build
 /coverage
+
+# Nx cache
 /.nx/cache
 /.nx/workspace-data
+
+# Angular specific
 .angular
+
+# Dependencies
+node_modules/
+
+# Generated files
+*.d.ts
+*.js.map
+*.d.ts.map
+
+# Minified files
+*.min.js
+*.min.css
+
+# Lock files
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Logs
+*.log
