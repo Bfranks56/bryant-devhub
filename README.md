@@ -2,25 +2,33 @@
 
 <a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
 
-✨ Your new, shiny [Nx workspace](https://nx.dev) is ready ✨.
+Welcome to my development workspace! This monorepo houses my various projects and experiments.
+
+## 🚀 First Project: Personal Website
+
+My first project in this workspace is building my personal website. This site will serve as a showcase of my development skills, a portfolio of my work, and a platform to share my thoughts on technology and development.
+
+The personal website is built using modern web technologies and is located in the `apps/personal-site` directory.
+
+✨ This [Nx workspace](https://nx.dev) provides the foundation for scalable development ✨.
 
 [Learn more about this workspace setup and its capabilities](https://nx.dev/getting-started/tutorials/angular-monorepo-tutorial?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
 
 ## Run tasks
 
-To run the dev server for your app, use:
+To run the dev server for the personal website, use:
 
 ```sh
 npx nx serve personal-site
 ```
 
-To create a production bundle:
+To create a production bundle for the personal website:
 
 ```sh
 npx nx build personal-site
 ```
 
-To see all available targets to run for a project, run:
+To see all available targets for the personal website project:
 
 ```sh
 npx nx show project personal-site
