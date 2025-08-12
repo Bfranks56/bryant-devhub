@@ -8,4 +8,6 @@ import { CommonModule } from '@angular/common';
   styleUrl: './footer.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FooterComponent {}
+export class FooterComponent {
+  protected year = new Date().getFullYear();
+}
