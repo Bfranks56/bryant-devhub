@@ -2,7 +2,12 @@
   "name": "@bryant-devhub/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "start": "npx nx serve personal-site",
+    "build": "npx nx build personal-site",
+    "test": "npx nx test personal-site",
+    "lint": "npx nx lint personal-site"
+  },
   "private": true,
   "dependencies": {
     "@angular-devkit/build-angular": "~20.1.0",
@@ -48,7 +53,7 @@
     "eslint": "^9.8.0",
     "eslint-config-prettier": "^10.0.0",
     "eslint-plugin-cypress": "^3.5.0",
-    "jest": "^30.0.2",
+    "jest": "^29.7.0",
     "jest-environment-jsdom": "^30.0.2",
     "jest-preset-angular": "~15.0.0",
     "jest-util": "^30.0.2",
