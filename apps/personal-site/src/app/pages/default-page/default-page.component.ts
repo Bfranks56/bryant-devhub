@@ -4,13 +4,13 @@ import {
   inject,
   OnInit,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { ActivatedRoute } from '@angular/router';
 import { PageContent } from '../../content/types/content.dto';
 
 @Component({
   selector: 'app-default-page',
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './default-page.component.html',
   styleUrl: './default-page.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

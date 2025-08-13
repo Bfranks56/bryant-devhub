@@ -6,7 +6,7 @@
       class="sm:hidden inline-flex items-center rounded-md border px-3 py-2 text-sm"
       aria-label="Menu"
       (click)="open = !open"
-    >
+      >
       Menu
     </button>
 
@@ -19,12 +19,15 @@
   </div>
 
   <!-- mobile -->
-  <nav *ngIf="open" class="sm:hidden border-t" aria-label="Mobile">
-    <div class="mx-auto max-w-6xl px-4 py-2 grid gap-2">
-      <a routerLink="/" (click)="open = false">Home</a>
-      <a routerLink="/about" (click)="open = false">About</a>
-      <a routerLink="/projects" (click)="open = false">Projects</a>
-      <a routerLink="/contact" (click)="open = false">Contact</a>
-    </div>
-  </nav>
+  @if (open) {
+    <nav class="sm:hidden border-t" aria-label="Mobile">
+      <div class="mx-auto max-w-6xl px-4 py-2 grid gap-2">
+        <a routerLink="/" (click)="open = false">Home</a>
+        <a routerLink="/about" (click)="open = false">About</a>
+        <a routerLink="/projects" (click)="open = false">Projects</a>
+        <a routerLink="/contact" (click)="open = false">Contact</a>
+      </div>
+    </nav>
+  }
 </header>
+
