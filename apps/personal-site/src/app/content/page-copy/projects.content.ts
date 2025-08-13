@@ -1,6 +1,6 @@
-import { ProjectContent } from '../types/content.dto';
+import { PageContent, ProjectContent } from '../types/content.dto';
 
-export const PROJECTS_CONTENT: ProjectContent[] = [
+export const PROJECTS_DATA: ProjectContent[] = [
   {
     id: 'personal-website',
     title: 'Personal Website',
@@ -37,3 +37,16 @@ export const PROJECTS_CONTENT: ProjectContent[] = [
     featured: false,
   },
 ];
+
+export const PROJECTS_CONTENT: PageContent = {
+  title: 'My Projects',
+  subtitle: "What I've been working on",
+  description: 'A showcase of my recent work and side projects',
+  content: [
+    {
+      type: 'projects',
+      heading: 'Featured Projects',
+      content: PROJECTS_DATA,
+    },
+  ],
+};

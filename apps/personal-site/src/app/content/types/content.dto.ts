@@ -9,7 +9,8 @@ export type ContentSection =
   | ParagraphSection
   | ListSection
   | CodeSection
-  | QuoteSection;
+  | QuoteSection
+  | ProjectSection;
 
 export interface ParagraphSection {
   type: 'paragraph';
@@ -35,6 +36,12 @@ export interface QuoteSection {
   heading?: string;
   content: string;
   author?: string;
+}
+
+export interface ProjectSection {
+  type: 'projects';
+  heading?: string;
+  content: ProjectContent[];
 }
 
 export interface ProjectContent {

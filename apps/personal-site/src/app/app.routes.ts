@@ -1,5 +1,5 @@
 import { Route } from '@angular/router';
-import { ABOUT_CONTENT, HOME_CONTENT } from './content';
+import { ABOUT_CONTENT, HOME_CONTENT, PROJECTS_CONTENT } from './content';
 
 export const appRoutes: Route[] = [
   {
@@ -23,12 +23,20 @@ export const appRoutes: Route[] = [
     loadComponent: () =>
       import('./pages/contact/contact.component').then(c => c.ContactComponent),
   },
+  // {
+  //   path: 'projects',
+  //   loadComponent: () =>
+  //     import('./pages/projects/projects.component').then(
+  //       c => c.ProjectsComponent
+  //     ),
+  // },
   {
     path: 'projects',
     loadComponent: () =>
-      import('./pages/projects/projects.component').then(
-        c => c.ProjectsComponent
+      import('./pages/default-page/default-page.component').then(
+        c => c.DefaultPageComponent
       ),
+    data: { pageContent: PROJECTS_CONTENT },
   },
   { path: '**', redirectTo: '' },
 ];
