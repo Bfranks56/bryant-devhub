@@ -17,9 +17,9 @@ import { PageContent } from '../../content/types/content.dto';
 })
 export class DefaultPageComponent implements OnInit {
   private route = inject(ActivatedRoute);
-  pageContent!: PageContent;
-  // constructor(private route: ActivatedRoute) {}
+  pageContent?: PageContent;
+
   ngOnInit(): void {
-    this.pageContent = this.route.snapshot.data['pageContent'];
+    this.pageContent = this.route.snapshot.data?.['pageContent'];
   }
 }

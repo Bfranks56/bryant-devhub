@@ -1,6 +1,9 @@
+@if (pageContent) {
 <section class="mx-auto max-w-6xl p-6">
   <h1 class="text-3xl font-bold" [innerHTML]="pageContent.title">Hello Tailwind</h1>
+  @if (pageContent.subtitle) {
   <h2 class="text-2xl font-bold mt-6" [innerHTML]="pageContent.subtitle"></h2>
+  }
 </section>
 
 @for (content of pageContent.content; track $index) {
@@ -38,6 +41,7 @@
       <div class="rounded-lg border p-6 shadow-sm">
         <h4 class="text-xl font-semibold mb-2">{{ project.title }}</h4>
         <p class="text-gray-600 mb-4">{{ project.description }}</p>
+        @if (project.technologies.length) {
         <div class="mb-4">
           <div class="flex flex-wrap gap-2">
             @for (tech of project.technologies; track tech) {
@@ -45,6 +49,7 @@
             }
           </div>
         </div>
+        }
         <div class="flex gap-2">
           @if (project.githubUrl) {
           <a [href]="project.githubUrl" target="_blank" class="text-blue-600 hover:underline text-sm">GitHub</a>
@@ -58,4 +63,4 @@
   </div>
   }
 </section>
-}
+} }
