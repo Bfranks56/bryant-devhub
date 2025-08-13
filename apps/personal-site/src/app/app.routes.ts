@@ -3,10 +3,14 @@ import { HomeComponent } from './pages/home/home.component';
 import { ContactComponent } from './pages/contact/contact.component';
 import { ProjectsComponent } from './pages/projects/projects.component';
 import { DefaultPageComponent } from './pages/default-page/default-page.component';
-import { ABOUT_CONTENT } from './content';
+import { ABOUT_CONTENT, HOME_CONTENT } from './content';
 
 export const appRoutes: Route[] = [
-  { path: '', component: HomeComponent },
+  {
+    path: '',
+    component: DefaultPageComponent,
+    data: { pageContent: HOME_CONTENT },
+  },
   {
     path: 'about',
     component: DefaultPageComponent,
