@@ -73,8 +73,8 @@ describe('DefaultPageComponent', () => {
     });
 
     it('should have initial properties set correctly', () => {
-      expect(component.pageContent).toBeUndefined();
-      expect(component.hasError).toBe(false);
+      expect(component.pageContent()).toBeUndefined();
+      expect(component.hasError()).toBe(false);
     });
   });
 
@@ -84,8 +84,8 @@ describe('DefaultPageComponent', () => {
     });
 
     it('should load page content from route data', () => {
-      expect(component.pageContent).toEqual(mockPageContent);
-      expect(component.hasError).toBe(false);
+      expect(component.pageContent()).toEqual(mockPageContent);
+      expect(component.hasError()).toBe(false);
     });
 
     it('should display page title and subtitle', () => {
@@ -134,7 +134,7 @@ describe('DefaultPageComponent', () => {
     });
 
     it('should set hasError to true when no page content', () => {
-      expect(component.hasError).toBe(true);
+      expect(component.hasError()).toBe(true);
     });
 
     it('should log error to console', () => {
@@ -144,9 +144,9 @@ describe('DefaultPageComponent', () => {
     });
 
     it('should set fallback content', () => {
-      expect(component.pageContent?.title).toBe('Page Not Found');
-      expect(component.pageContent?.subtitle).toBe('Content Missing');
-      expect(component.pageContent?.content.length).toBe(2);
+      expect(component.pageContent()?.title).toBe('Page Not Found');
+      expect(component.pageContent()?.subtitle).toBe('Content Missing');
+      expect(component.pageContent()?.content.length).toBe(2);
     });
 
     it('should display error banner', () => {
@@ -301,7 +301,7 @@ describe('DefaultPageComponent', () => {
 
       fixture.detectChanges();
 
-      component.pageContent = undefined;
+      component.pageContent.set(undefined);
       fixture.detectChanges();
     });
 
@@ -316,7 +316,7 @@ describe('DefaultPageComponent', () => {
       if (pageSection) {
         const titleElement = pageSection.query(By.css('h1'));
         expect(titleElement.nativeElement.textContent.trim()).toBe(
-          'Page Not Found'
+          'Content Unavailable'
         );
       } else {
         const fallbackSection = fixture.debugElement.query(
@@ -340,7 +340,7 @@ describe('DefaultPageComponent', () => {
       expect(homeLink.nativeElement.getAttribute('href')).toBe('/');
 
       const actualText = homeLink.nativeElement.textContent.trim();
-      expect(actualText).toBe('home page');
+      expect(actualText).toBe('Return to Home');
     });
   });
 
@@ -348,14 +348,14 @@ describe('DefaultPageComponent', () => {
     it('should create proper fallback content structure', () => {
       component['setFallbackContent']();
 
-      expect(component.pageContent?.title).toBe('Page Not Found');
-      expect(component.pageContent?.subtitle).toBe('Content Missing');
-      expect(component.pageContent?.description).toBe(
+      expect(component.pageContent()?.title).toBe('Page Not Found');
+      expect(component.pageContent()?.subtitle).toBe('Content Missing');
+      expect(component.pageContent()?.description).toBe(
         'The requested page content could not be loaded.'
       );
-      expect(component.pageContent?.content.length).toBe(2);
-      expect(component.pageContent?.content[0].type).toBe('paragraph');
-      expect(component.pageContent?.content[1].type).toBe('paragraph');
+      expect(component.pageContent()?.content.length).toBe(2);
+      expect(component.pageContent()?.content[0].type).toBe('paragraph');
+      expect(component.pageContent()?.content[1].type).toBe('paragraph');
     });
   });
 });

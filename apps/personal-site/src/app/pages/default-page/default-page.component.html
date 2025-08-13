@@ -1,6 +1,4 @@
-@if (pageContent) {
-<!-- Error State Indicator -->
-@if (hasError) {
+@if (pageContent()) { @if (hasError()) {
 <div class="mx-auto max-w-6xl p-6">
   <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-6">
     <div class="flex">
@@ -22,13 +20,13 @@
 }
 
 <section class="mx-auto max-w-6xl p-6">
-  <h1 class="text-3xl font-bold" [innerHTML]="pageContent.title">Hello Tailwind</h1>
-  @if (pageContent.subtitle) {
-  <h2 class="text-2xl font-bold mt-6" [innerHTML]="pageContent.subtitle"></h2>
+  <h1 class="text-3xl font-bold" [innerHTML]="pageContent()?.title">Hello Tailwind</h1>
+  @if (pageContent()?.subtitle) {
+  <h2 class="text-2xl font-bold mt-6" [innerHTML]="pageContent()?.subtitle"></h2>
   }
 </section>
 
-@for (content of pageContent.content; track $index) {
+@for (content of pageContent()?.content || []; track $index) {
 <section>
   <!-- PARAGRAPHS -->
   @if (content.type === 'paragraph') {
