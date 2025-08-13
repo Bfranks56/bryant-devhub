@@ -23,13 +23,6 @@ export const appRoutes: Route[] = [
     loadComponent: () =>
       import('./pages/contact/contact.component').then(c => c.ContactComponent),
   },
-  // {
-  //   path: 'projects',
-  //   loadComponent: () =>
-  //     import('./pages/projects/projects.component').then(
-  //       c => c.ProjectsComponent
-  //     ),
-  // },
   {
     path: 'projects',
     loadComponent: () =>
