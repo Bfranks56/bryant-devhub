@@ -1,4 +1,4 @@
-import { PageContent } from '../types/content.types';
+import { PageContent } from '../types/content.dto';
 
 export const ABOUT_CONTENT: PageContent = {
   title: 'About Me',

@@ -17,13 +17,6 @@ export interface ParagraphSection {
   content: string;
 }
 
-// export interface HeadingSection {
-//   type: 'heading';
-//   heading?: string;
-//   content: string;
-//   level: number; // h1, h2, etc.
-// }
-
 export interface ListSection {
   type: 'list';
   heading?: string;

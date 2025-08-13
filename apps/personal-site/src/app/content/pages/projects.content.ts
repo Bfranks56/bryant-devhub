@@ -1,4 +1,4 @@
-import { ProjectContent } from '../types/content.types';
+import { ProjectContent } from '../types/content.dto';
 
 export const PROJECTS_CONTENT: ProjectContent[] = [
   {

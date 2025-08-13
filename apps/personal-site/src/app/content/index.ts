@@ -5,7 +5,4 @@ export * from './pages/projects.content';
 export * from './pages/contact.content';
 
 // Export types
-export * from './types/content.types';
-
-// Export utilities
-export * from './utils/content.utils';
+export * from './types/content.dto';
