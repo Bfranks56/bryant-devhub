@@ -30,17 +30,5 @@ export const appRoutes: Route[] = [
         c => c.ProjectsComponent
       ),
   },
-  // {
-  //   path: '',
-  //   component: DefaultPageComponent,
-  //   data: { pageContent: HOME_CONTENT },
-  // },
-  // {
-  //   path: 'about',
-  //   component: DefaultPageComponent,
-  //   data: { pageContent: ABOUT_CONTENT },
-  // },
-  // { path: 'contact', component: ContactComponent },
-  // { path: 'projects', component: ProjectsComponent },
   { path: '**', redirectTo: '' },
 ];
