@@ -1,13 +1,35 @@
 import { Route } from '@angular/router';
-import { HomeComponent } from './pages/home/home.component';
-import { AboutComponent } from './pages/about/about.component';
-import { ContactComponent } from './pages/contact/contact.component';
-import { ProjectsComponent } from './pages/projects/projects.component';
+import { ABOUT_CONTENT, HOME_CONTENT, PROJECTS_CONTENT } from './content';
 
 export const appRoutes: Route[] = [
-  { path: '', component: HomeComponent },
-  { path: 'about', component: AboutComponent },
-  { path: 'contact', component: ContactComponent },
-  { path: 'projects', component: ProjectsComponent },
+  {
+    path: '',
+    loadComponent: () =>
+      import('./pages/default-page/default-page.component').then(
+        c => c.DefaultPageComponent
+      ),
+    data: { pageContent: HOME_CONTENT },
+  },
+  {
+    path: 'about',
+    loadComponent: () =>
+      import('./pages/default-page/default-page.component').then(
+        c => c.DefaultPageComponent
+      ),
+    data: { pageContent: ABOUT_CONTENT },
+  },
+  {
+    path: 'contact',
+    loadComponent: () =>
+      import('./pages/contact/contact.component').then(c => c.ContactComponent),
+  },
+  {
+    path: 'projects',
+    loadComponent: () =>
+      import('./pages/default-page/default-page.component').then(
+        c => c.DefaultPageComponent
+      ),
+    data: { pageContent: PROJECTS_CONTENT },
+  },
   { path: '**', redirectTo: '' },
 ];

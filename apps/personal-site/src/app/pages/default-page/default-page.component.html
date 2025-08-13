@@ -1,0 +1,110 @@
+@if (pageContent()) { @if (hasError()) {
+<div class="mx-auto max-w-6xl p-6">
+  <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-6">
+    <div class="flex">
+      <div class="flex-shrink-0">
+        <svg class="h-5 w-5 text-yellow-400" viewBox="0 0 20 20" fill="currentColor">
+          <path
+            fill-rule="evenodd"
+            d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"
+            clip-rule="evenodd"
+          />
+        </svg>
+      </div>
+      <div class="ml-3">
+        <p class="text-sm text-yellow-700">Content configuration missing - showing fallback content</p>
+      </div>
+    </div>
+  </div>
+</div>
+}
+
+<section class="mx-auto max-w-6xl p-6">
+  <h1 class="text-3xl font-bold" [innerHTML]="pageContent()?.title">Hello Tailwind</h1>
+  @if (pageContent()?.subtitle) {
+  <h2 class="text-2xl font-bold mt-6" [innerHTML]="pageContent()?.subtitle"></h2>
+  }
+</section>
+
+@for (content of pageContent()?.content || []; track $index) {
+<section>
+  <!-- PARAGRAPHS -->
+  @if (content.type === 'paragraph') {
+  <div class="mx-auto max-w-6xl mt-4">
+    @if (content.heading) {
+    <h3 [innerHTML]="content.heading" class="text-2xl font-bold mb-4"></h3>
+    }
+    <p class="text-gray-800" [innerHTML]="content.content"></p>
+  </div>
+  }
+  <!--LISTS  -->
+  @if (content.type === 'list') {
+  <div class="mx-auto max-w-6xl mt-4">
+    @if (content.heading) {
+    <h3 [innerHTML]="content.heading" class="text-2xl font-bold mb-4"></h3>
+    }
+    <ul class="list-disc list-inside text-gray-800">
+      @for (item of content.content; track item) {
+      <li [innerHTML]="item"></li>
+      }
+    </ul>
+  </div>
+  }
+  <!-- PROJECTS -->
+  @if (content.type === 'projects') {
+  <div class="mx-auto max-w-6xl mt-4">
+    @if (content.heading) {
+    <h3 [innerHTML]="content.heading" class="text-2xl font-bold mb-4"></h3>
+    }
+    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      @for (project of content.content; track project.id) {
+      <div class="rounded-lg border p-6 shadow-sm">
+        <h4 class="text-xl font-semibold mb-2">{{ project.title }}</h4>
+        <p class="text-gray-600 mb-4">{{ project.description }}</p>
+        @if (project.technologies.length) {
+        <div class="mb-4">
+          <div class="flex flex-wrap gap-2">
+            @for (tech of project.technologies; track tech) {
+            <span class="px-2 py-1 bg-gray-100 text-sm rounded">{{ tech }}</span>
+            }
+          </div>
+        </div>
+        }
+        <div class="flex gap-2">
+          @if (project.githubUrl) {
+          <a [href]="project.githubUrl" target="_blank" class="text-blue-600 hover:underline text-sm">GitHub</a>
+          } @if (project.liveUrl) {
+          <a [href]="project.liveUrl" target="_blank" class="text-blue-600 hover:underline text-sm">Live Demo</a>
+          }
+        </div>
+      </div>
+      }
+    </div>
+  </div>
+  }
+</section>
+} } @else {
+<!-- Complete Fallback when no pageContent at all -->
+<section class="mx-auto max-w-6xl p-6">
+  <div class="text-center py-12">
+    <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+      />
+    </svg>
+    <h1 class="mt-4 text-3xl font-bold text-gray-900">Content Unavailable</h1>
+    <p class="mt-2 text-lg text-gray-600">This page could not be loaded due to a configuration error.</p>
+    <div class="mt-6">
+      <a
+        href="/"
+        class="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700"
+      >
+        Return to Home
+      </a>
+    </div>
+  </div>
+</section>
+}
