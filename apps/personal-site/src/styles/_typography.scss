@@ -1,0 +1,43 @@
+// Inter font system - Force Inter consistently across all elements
+@use 'variables' as vars;
+
+// Override ALL Angular Material typography to use Inter
+* {
+  font-family: vars.$font-family-primary !important;
+}
+
+// Global Inter font enforcement for specific elements
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+span,
+div,
+li,
+td,
+th,
+button,
+input,
+select,
+textarea {
+  font-family: vars.$font-family-primary !important;
+}
+
+// Override Material's system font variables to use Inter
+:root {
+  --mat-sys-typescale-body-large-font: #{vars.$font-family-primary};
+  --mat-sys-typescale-body-medium-font: #{vars.$font-family-primary};
+  --mat-sys-typescale-body-small-font: #{vars.$font-family-primary};
+  --mat-sys-typescale-headline-large-font: #{vars.$font-family-primary};
+  --mat-sys-typescale-headline-medium-font: #{vars.$font-family-primary};
+  --mat-sys-typescale-headline-small-font: #{vars.$font-family-primary};
+  --mat-sys-typescale-title-large-font: #{vars.$font-family-primary};
+  --mat-sys-typescale-title-medium-font: #{vars.$font-family-primary};
+  --mat-sys-typescale-title-small-font: #{vars.$font-family-primary};
+  --mat-sys-typescale-label-large-font: #{vars.$font-family-primary};
+  --mat-sys-typescale-label-medium-font: #{vars.$font-family-primary};
+  --mat-sys-typescale-label-small-font: #{vars.$font-family-primary};
+}

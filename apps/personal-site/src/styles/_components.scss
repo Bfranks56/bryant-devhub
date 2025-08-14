@@ -1,0 +1,84 @@
+@use 'variables' as vars;
+
+@layer components {
+  // Form container that blends Material inputs with Tailwind layout
+  .contact-form {
+    @apply max-w-4xl mx-auto;
+    font-family: vars.$font-family-primary;
+
+    .form-header {
+      @apply prose prose-lg prose-slate max-w-none text-center mb-8;
+
+      h1,
+      h2 {
+        @apply text-teal-700 font-bold;
+        font-family: vars.$font-family-primary;
+      }
+
+      p {
+        @apply text-gray-600;
+        font-family: vars.$font-family-primary;
+      }
+    }
+
+    .form-content {
+      @apply bg-white rounded-xl shadow-lg p-8;
+
+      .form-row {
+        @apply grid grid-cols-1 md:grid-cols-2 gap-6 mb-6;
+      }
+
+      .form-full-width {
+        @apply col-span-full mb-6;
+      }
+
+      .form-actions {
+        @apply flex flex-col sm:flex-row gap-4 justify-end mt-8 pt-6 border-t border-gray-200;
+      }
+    }
+
+    // Ensure Material form fields inherit Tailwind spacing and Inter font
+    .mat-mdc-form-field {
+      @apply w-full;
+      font-family: vars.$font-family-primary !important;
+    }
+  }
+
+  // Keep  existing content sections pure Tailwind with Inter
+  .content-section {
+    @apply prose prose-lg prose-slate max-w-none;
+    font-family: vars.$font-family-primary;
+
+    // brand typography overrides with Inter
+    h1,
+    h2,
+    h3 {
+      @apply text-teal-700;
+      font-family: vars.$font-family-primary;
+    }
+
+    a {
+      @apply text-teal-600 no-underline font-medium hover:text-teal-800;
+      font-family: vars.$font-family-primary;
+    }
+
+    blockquote {
+      @apply border-l-4 border-teal-500 text-gray-600 italic;
+      font-family: vars.$font-family-primary;
+    }
+
+    code {
+      @apply text-pink-600 bg-gray-100 px-2 py-1 rounded;
+      font-family: vars.$font-family-primary;
+    }
+
+    p,
+    span,
+    div,
+    li,
+    td,
+    th {
+      font-family: vars.$font-family-primary;
+    }
+  }
+}

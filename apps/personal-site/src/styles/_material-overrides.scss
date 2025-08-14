@@ -1,0 +1,107 @@
+// Angular Material component customizations
+@use 'variables' as vars;
+
+// Material form fields: force Inter font and Tailwind-like styling
+.mat-mdc-form-field {
+  font-family: vars.$font-family-primary !important;
+
+  // Override Material's outline styling to be more Tailwind-like
+  &.mat-form-field-appearance-outline {
+    .mat-mdc-form-field-outline {
+      border-radius: vars.$border-radius-lg;
+      border-color: vars.$gray-300;
+    }
+
+    &.mat-focused .mat-mdc-form-field-outline-thick {
+      border-color: vars.$teal-500;
+      border-width: 2px;
+    }
+
+    &.mat-form-field-invalid .mat-mdc-form-field-outline-thick {
+      border-color: vars.$red-500;
+    }
+  }
+
+  // Material labels with Inter font and Tailwind colors
+  .mat-mdc-form-field-label {
+    font-family: vars.$font-family-primary !important;
+    color: vars.$gray-500 !important;
+  }
+
+  &.mat-focused .mat-mdc-form-field-label {
+    color: vars.$teal-500 !important;
+  }
+
+  // Input text styling with Inter
+  .mat-mdc-input-element {
+    font-family: vars.$font-family-primary !important;
+    color: vars.$gray-900;
+  }
+}
+
+// Material buttons with Inter font and proper Angular Material 20 styling
+.mat-mdc-button,
+.mat-mdc-raised-button,
+.mat-mdc-outlined-button,
+.mat-mdc-unelevated-button {
+  font-family: vars.$font-family-primary !important;
+  font-weight: 500;
+  border-radius: vars.$border-radius-lg !important;
+
+  // Ensure Material's ripple and other effects work
+  .mat-mdc-button-touch-target {
+    border-radius: vars.$border-radius-lg;
+  }
+
+  // Override Material's default color variables
+  --mdc-filled-button-container-color: #{vars.$teal-500};
+  --mdc-filled-button-label-text-color: white;
+
+  &.mat-primary {
+    --mdc-filled-button-container-color: #{vars.$teal-500};
+    --mdc-filled-button-label-text-color: white;
+    --mdc-filled-button-hover-container-color: #{vars.$teal-600};
+    --mdc-filled-button-focus-container-color: #{vars.$teal-600};
+    --mdc-filled-button-pressed-container-color: #{vars.$teal-700};
+  }
+
+  &.mat-accent {
+    --mdc-filled-button-container-color: #{vars.$amber-400};
+    --mdc-filled-button-label-text-color: white;
+    --mdc-filled-button-hover-container-color: #{vars.$amber-500};
+    --mdc-filled-button-focus-container-color: #{vars.$amber-500};
+    --mdc-filled-button-pressed-container-color: #{vars.$amber-600};
+  }
+
+  &.mat-warn {
+    --mdc-filled-button-container-color: #{vars.$red-500};
+    --mdc-filled-button-label-text-color: white;
+    --mdc-filled-button-hover-container-color: #{vars.$red-600};
+    --mdc-filled-button-focus-container-color: #{vars.$red-600};
+    --mdc-filled-button-pressed-container-color: #{vars.$red-700};
+  }
+}
+
+// Outlined buttons
+.mat-mdc-outlined-button {
+  --mdc-outlined-button-outline-color: #{vars.$teal-500};
+  --mdc-outlined-button-label-text-color: #{vars.$teal-500};
+  --mdc-outlined-button-hover-label-text-color: #{vars.$teal-700};
+  --mdc-outlined-button-focus-label-text-color: #{vars.$teal-700};
+  --mdc-outlined-button-pressed-label-text-color: #{vars.$teal-700};
+
+  &.mat-primary {
+    --mdc-outlined-button-outline-color: #{vars.$teal-500};
+    --mdc-outlined-button-label-text-color: #{vars.$teal-500};
+  }
+
+  &.mat-accent {
+    --mdc-outlined-button-outline-color: #{vars.$amber-400};
+    --mdc-outlined-button-label-text-color: #{vars.$amber-400};
+  }
+
+  &.mat-warn {
+    --mdc-outlined-button-outline-color: #{vars.$red-500};
+    --mdc-outlined-button-label-text-color: #{vars.$red-500};
+  }
+}

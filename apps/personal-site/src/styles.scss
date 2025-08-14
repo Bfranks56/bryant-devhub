@@ -1,6 +1,31 @@
+@use '@angular/material' as mat;
+@use 'styles/variables' as vars;
+@use 'styles/base';
+@use 'styles/typography';
+@use 'styles/material-overrides';
+@use 'styles/components';
+
+@include mat.core();
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@plugin "@tailwindcss/typography";
 
-/* You can add global styles to this file, and also import other style files */
+// Create material theme
+$custom-theme: mat.define-theme(
+  (
+    color: (
+      theme-type: light,
+      primary: mat.$cyan-palette,
+      tertiary: mat.$orange-palette,
+    ),
+    density: (
+      scale: 0,
+    ),
+  )
+);
+
+// Apply the complete theme to all material themes.
+html {
+  @include mat.all-component-themes($custom-theme);
+}

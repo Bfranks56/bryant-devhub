@@ -1,0 +1,13 @@
+@use 'variables' as vars;
+
+html,
+body {
+  font-family: vars.$font-family-primary !important;
+
+  // Remove Material's global background/color and let Tailwind handle it
+  background-color: unset !important;
+  color: unset !important;
+
+  height: 100%;
+  margin: 0;
+}
