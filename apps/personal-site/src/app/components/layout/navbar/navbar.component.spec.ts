@@ -22,18 +22,17 @@ describe('NavbarComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should render nav links', () => {
-    const linkElements = fixture.debugElement.queryAll(
-      By.css('nav[aria-label="Main"] a')
+  it('should render nav buttons', () => {
+    const buttonElements = fixture.debugElement.queryAll(
+      By.css('nav[aria-label="Main"] button')
     );
-    const linkTexts = linkElements.map(el =>
+    const buttonTexts = buttonElements.map(el =>
       el.nativeElement.textContent.trim()
     );
 
-    expect(linkTexts).toContain('Home');
-    expect(linkTexts).toContain('About');
-    expect(linkTexts).toContain('Projects');
-    expect(linkTexts).toContain('Contact');
+    expect(buttonTexts).toContain('Home');
+    expect(buttonTexts).toContain('About');
+    expect(buttonTexts).toContain('Projects');
   });
 
   it('toggles mobile menu when clicking menu button', () => {
