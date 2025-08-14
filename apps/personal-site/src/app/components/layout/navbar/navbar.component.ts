@@ -33,5 +33,6 @@ export class NavbarComponent {
       top: 0,
       behavior: 'smooth',
     });
+    this.open = false;
   }
 }
