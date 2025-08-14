@@ -28,6 +28,17 @@
 
 @for (content of pageContent()?.content || []; track $index) {
 <section>
+  <!-- Section Header -->
+  @if (content.type === 'section-header') {
+  <section [id]="content.id">
+    <div class="mx-auto max-w-6xl mt-8">
+      <h2 class="text-4xl font-bold mb-4">{{ content.heading }}</h2>
+      @if (content.subtitle) {
+      <h3 class="text-2xl text-gray-600 mb-8">{{ content.subtitle }}</h3>
+      }
+    </div>
+  </section>
+  }
   <!-- PARAGRAPHS -->
   @if (content.type === 'paragraph') {
   <div class="mx-auto max-w-6xl mt-4">

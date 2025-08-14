@@ -1,4 +1,4 @@
-<header class="sticky top-0 z-50 border-b bg-white/70 backdrop-blur">
+<header class="border-b bg-white/70 backdrop-blur">
   <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
     <a class="text-lg font-semibold tracking-tight" routerLink="/">Bryant.dev</a>
 
@@ -6,28 +6,25 @@
       class="sm:hidden inline-flex items-center rounded-md border px-3 py-2 text-sm"
       aria-label="Menu"
       (click)="open = !open"
-      >
+    >
       Menu
     </button>
 
     <nav class="hidden gap-6 sm:flex" aria-label="Main">
-      <a class="hover:underline" routerLink="/">Home</a>
-      <a class="hover:underline" routerLink="/about">About</a>
-      <a class="hover:underline" routerLink="/projects">Projects</a>
-      <a class="hover:underline" routerLink="/contact">Contact</a>
+      <button class="hover:underline cursor-pointer" (click)="scrollToTop()">Home</button>
+      <button class="hover:underline cursor-pointer" (click)="scrollToSection('about')">About</button>
+      <button class="hover:underline cursor-pointer" (click)="scrollToSection('projects')">Projects</button>
     </nav>
   </div>
 
   <!-- mobile -->
   @if (open) {
-    <nav class="sm:hidden border-t" aria-label="Mobile">
-      <div class="mx-auto max-w-6xl px-4 py-2 grid gap-2">
-        <a routerLink="/" (click)="open = false">Home</a>
-        <a routerLink="/about" (click)="open = false">About</a>
-        <a routerLink="/projects" (click)="open = false">Projects</a>
-        <a routerLink="/contact" (click)="open = false">Contact</a>
-      </div>
-    </nav>
+  <nav class="sm:hidden border-t" aria-label="Mobile">
+    <div class="mx-auto max-w-6xl px-4 py-2 grid gap-2">
+      <button class="cursor-pointer" (click)="scrollToTop()">Home</button>
+      <button class="cursor-pointer" (click)="scrollToSection('about')">About</button>
+      <button class="cursor-pointer" (click)="scrollToSection('projects')">Projects</button>
+    </div>
+  </nav>
   }
 </header>
-
