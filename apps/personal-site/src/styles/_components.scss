@@ -1,4 +1,3 @@
-// Tailwind component utilities that work with Material and use Inter
 @use 'variables' as vars;
 
 @layer components {
@@ -8,7 +7,6 @@
     font-family: vars.$font-family-primary;
 
     .form-header {
-      // Use Tailwind typography for headers with Inter
       @apply prose prose-lg prose-slate max-w-none text-center mb-8;
 
       h1,
@@ -46,12 +44,12 @@
     }
   }
 
-  // Keep your existing content sections pure Tailwind with Inter
+  // Keep  existing content sections pure Tailwind with Inter
   .content-section {
     @apply prose prose-lg prose-slate max-w-none;
     font-family: vars.$font-family-primary;
 
-    // Your existing brand typography overrides with Inter
+    // brand typography overrides with Inter
     h1,
     h2,
     h3 {

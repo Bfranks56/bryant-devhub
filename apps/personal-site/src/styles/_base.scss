@@ -1,17 +1,13 @@
-// Base styles and global resets
 @use 'variables' as vars;
 
-// INTER FONT SYSTEM - Base font setup
 html,
 body {
-  // Force Inter font family for everything
   font-family: vars.$font-family-primary !important;
 
   // Remove Material's global background/color and let Tailwind handle it
   background-color: unset !important;
   color: unset !important;
 
-  // Essential resets
   height: 100%;
   margin: 0;
 }
