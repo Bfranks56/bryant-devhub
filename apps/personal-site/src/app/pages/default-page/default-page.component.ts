@@ -13,7 +13,7 @@ import { PageContent } from '../../content/types/content.dto';
   selector: 'app-default-page',
   imports: [],
   templateUrl: './default-page.component.html',
-  styleUrl: './default-page.component.css',
+  styleUrl: './default-page.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DefaultPageComponent implements OnInit {
