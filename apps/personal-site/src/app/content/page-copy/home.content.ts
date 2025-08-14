@@ -1,4 +1,4 @@
-import { PageContent } from '../types/content.dto';
+import { PageContent } from '../../shared/interfaces/pageContent/content.dto';
 
 export const HOME_CONTENT: PageContent = {
   title: 'Bryant Franks',

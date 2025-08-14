@@ -3,7 +3,10 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { By } from '@angular/platform-browser';
 import { DefaultPageComponent } from './default-page.component';
-import { PageContent, ProjectContent } from '../../content/types/content.dto';
+import {
+  PageContent,
+  ProjectContent,
+} from '../../shared/interfaces/pageContent/content.dto';
 
 const mockPageContent: PageContent = {
   title: 'Test Page',

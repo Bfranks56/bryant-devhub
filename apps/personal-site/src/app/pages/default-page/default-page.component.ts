@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 
 import { ActivatedRoute } from '@angular/router';
-import { PageContent } from '../../content/types/content.dto';
+import { PageContent } from '../../shared/interfaces/pageContent/content.dto';
 
 @Component({
   selector: 'app-default-page',

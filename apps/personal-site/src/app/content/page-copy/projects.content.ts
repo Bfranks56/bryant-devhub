@@ -1,4 +1,7 @@
-import { PageContent, ProjectContent } from '../types/content.dto';
+import {
+  PageContent,
+  ProjectContent,
+} from '../../shared/interfaces/pageContent/content.dto';
 
 export const PROJECTS_DATA: ProjectContent[] = [
   {
