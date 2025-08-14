@@ -10,8 +10,8 @@ export type ContentSection =
   | ListSection
   | CodeSection
   | QuoteSection
-  | ProjectSection;
-
+  | ProjectSection
+  | SectionHeaderSection; // Add this
 export interface ParagraphSection {
   type: 'paragraph';
   heading?: string;
@@ -60,4 +60,11 @@ export interface ContactInfo {
   github: string;
   linkedin: string;
   location: string;
+}
+
+export interface SectionHeaderSection {
+  type: 'section-header';
+  heading: string;
+  id: string;
+  subtitle?: string;
 }
