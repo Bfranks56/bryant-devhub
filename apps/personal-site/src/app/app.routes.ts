@@ -1,5 +1,4 @@
 import { Route } from '@angular/router';
-import { ABOUT_CONTENT, HOME_CONTENT, PROJECTS_CONTENT } from './content';
 import { LANDING_CONTENT } from './content/page-copy/landing.content';
 
 export const appRoutes: Route[] = [

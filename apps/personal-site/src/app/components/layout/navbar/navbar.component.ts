@@ -11,4 +11,27 @@ import { RouterModule } from '@angular/router';
 })
 export class NavbarComponent {
   open = false;
+
+  scrollToSection(sectionId: string, event?: Event) {
+    if (event) {
+      event.preventDefault();
+    }
+
+    const element = document.getElementById(sectionId);
+    if (element) {
+      document.documentElement.scrollTo({
+        top: element.offsetTop - 68, // Adjust for fixed header
+        behavior: 'smooth',
+      });
+    }
+
+    this.open = false;
+  }
+
+  scrollToTop() {
+    document.documentElement.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  }
 }
