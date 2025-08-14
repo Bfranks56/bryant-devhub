@@ -1,32 +1,13 @@
 // Inter font system - Force Inter consistently across all elements
 @use 'variables' as vars;
+@use 'mixins';
 
-// Override ALL Angular Material typography to use Inter
-* {
-  font-family: vars.$font-family-primary !important;
+// Single font override instead of element-by-element
+html {
+  @include mixins.inter-font;
 }
 
-// Global Inter font enforcement for specific elements
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p,
-span,
-div,
-li,
-td,
-th,
-button,
-input,
-select,
-textarea {
-  font-family: vars.$font-family-primary !important;
-}
-
-// Override Material's system font variables to use Inter
+// Material Design token overrides (more efficient)
 :root {
   --mat-sys-typescale-body-large-font: #{vars.$font-family-primary};
   --mat-sys-typescale-body-medium-font: #{vars.$font-family-primary};

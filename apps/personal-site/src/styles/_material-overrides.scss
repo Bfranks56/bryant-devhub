@@ -1,9 +1,10 @@
 // Angular Material component customizations
 @use 'variables' as vars;
+@use 'mixins';
 
 // Material form fields: force Inter font and Tailwind-like styling
 .mat-mdc-form-field {
-  font-family: vars.$font-family-primary !important;
+  @include mixins.form-field-base;
 
   // Override Material's outline styling to be more Tailwind-like
   &.mat-form-field-appearance-outline {
@@ -24,7 +25,7 @@
 
   // Material labels with Inter font and Tailwind colors
   .mat-mdc-form-field-label {
-    font-family: vars.$font-family-primary !important;
+    @include mixins.inter-font;
     color: vars.$gray-500 !important;
   }
 
@@ -34,7 +35,7 @@
 
   // Input text styling with Inter
   .mat-mdc-input-element {
-    font-family: vars.$font-family-primary !important;
+    @include mixins.inter-font;
     color: vars.$gray-900;
   }
 }
@@ -44,9 +45,7 @@
 .mat-mdc-raised-button,
 .mat-mdc-outlined-button,
 .mat-mdc-unelevated-button {
-  font-family: vars.$font-family-primary !important;
-  font-weight: 500;
-  border-radius: vars.$border-radius-lg !important;
+  @include mixins.button-base;
 
   // Ensure Material's ripple and other effects work
   .mat-mdc-button-touch-target {
