@@ -5,4 +5,4 @@ export * from './page-copy/projects.content';
 export * from './page-copy/contact.content';
 
 // Export types
-export * from './types/content.dto';
+export * from '../shared/interfaces/pageContent/content.dto';

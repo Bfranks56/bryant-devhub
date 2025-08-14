@@ -1,4 +1,7 @@
-import { ContactInfo, PageContent } from '../types/content.dto';
+import {
+  ContactInfo,
+  PageContent,
+} from '../../shared/interfaces/pageContent/content.dto';
 
 export const CONTACT_CONTENT: PageContent = {
   title: 'Get In Touch',
