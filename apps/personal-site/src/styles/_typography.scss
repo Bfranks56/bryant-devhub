@@ -7,6 +7,12 @@ html {
   @include mixins.inter-font;
 }
 
+// H1 styling is now handled by Tailwind prose-brand variant
+// This global fallback ensures Inter is used for any h1 outside prose contexts
+h1 {
+  @include mixins.inter-font;
+}
+
 // Material Design token overrides (more efficient)
 :root {
   --mat-sys-typescale-body-large-font: #{vars.$font-family-primary};

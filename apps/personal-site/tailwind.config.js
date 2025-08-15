@@ -83,12 +83,14 @@ module.exports = {
             color: theme('colors.gray.900'), // Persona 3 text color
             h1: {
               color: theme('colors.primary.DEFAULT'),
-              fontWeight: '700',
+              fontWeight: '900',
+              fontStyle: 'italic',
+              fontFamily: ['Inter', ...defaultTheme.fontFamily.sans],
               letterSpacing: '-0.025em',
             },
             h2: {
               color: theme('colors.secondary.DEFAULT'),
-              fontWeight: '600',
+              fontWeight: '700',
             },
             a: {
               color: theme('colors.accent.DEFAULT'),
@@ -109,6 +111,60 @@ module.exports = {
               backgroundColor: theme('colors.gray.100'),
               padding: '0.2em 0.4em',
               borderRadius: '4px',
+            },
+          },
+        },
+        // Inverted version for dark backgrounds
+        'brand-invert': {
+          css: {
+            color: theme('colors.white'),
+            h1: {
+              color: theme('colors.primary.foreground'),
+              fontWeight: '900',
+              fontStyle: 'italic',
+              fontFamily: ['Inter', ...defaultTheme.fontFamily.sans],
+              letterSpacing: '-0.025em',
+            },
+            h2: {
+              color: theme('colors.primary.foreground'),
+              fontWeight: '700',
+              opacity: '0.9',
+            },
+            h3: {
+              color: theme('colors.primary.foreground'),
+              opacity: '0.9',
+            },
+            p: {
+              color: theme('colors.primary.foreground'),
+              opacity: '0.85',
+            },
+            a: {
+              color: theme('colors.accent.DEFAULT'),
+              textDecoration: 'none',
+              fontWeight: '500',
+              '&:hover': {
+                color: theme('colors.accent.hover'),
+              },
+            },
+            strong: {
+              color: theme('colors.primary.foreground'),
+              opacity: '1',
+            },
+            blockquote: {
+              borderLeftColor: theme('colors.primary.foreground'),
+              color: theme('colors.primary.foreground'),
+              opacity: '0.8',
+              fontStyle: 'italic',
+            },
+            code: {
+              color: theme('colors.accent.DEFAULT'),
+              backgroundColor: 'rgba(255, 255, 255, 0.1)',
+              padding: '0.2em 0.4em',
+              borderRadius: '4px',
+            },
+            'ul > li': {
+              color: theme('colors.primary.foreground'),
+              opacity: '0.85',
             },
           },
         },
