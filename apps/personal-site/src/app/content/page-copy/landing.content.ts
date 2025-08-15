@@ -7,30 +7,25 @@ export const LANDING_CONTENT: PageContent = {
   title: 'Bryant Franks',
   subtitle: 'Full Stack Developer & Digital Creator',
   description: 'Building modern web applications with passion and precision',
-  content: [
+  sections: [
     // Home Section
     {
-      type: 'section-header',
-      heading: 'Welcome',
       id: 'home',
+      heading: 'Welcome',
       subtitle: 'Full Stack Developer',
+      content: HOME_CONTENT.content || [],
     },
-    ...HOME_CONTENT.content,
-
     // About Section
     {
-      type: 'section-header',
-      heading: 'About Me',
       id: 'about',
+      heading: 'About Me',
+      content: ABOUT_CONTENT.content || [],
     },
-    ...ABOUT_CONTENT.content,
-
     // Projects Section
     {
-      type: 'section-header',
-      heading: 'My Projects',
       id: 'projects',
+      heading: 'My Projects',
+      content: PROJECTS_CONTENT.content || [],
     },
-    ...PROJECTS_CONTENT.content,
   ],
 };
