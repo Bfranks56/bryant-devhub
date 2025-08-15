@@ -1,3 +1,23 @@
+<!-- Hero Section -->
+<section class="relative min-h-screen flex items-center overflow-hidden">
+  <!-- Background with Halftone SVG -->
+  <div class="absolute inset-0 bg-gradient-to-r from-white via-white/95 to-transparent"></div>
+  <div
+    class="absolute right-0 top-0 h-full w-full bg-no-repeat bg-cover bg-right opacity-20"
+    style="background-image: url('/assets/img/svg/halftone-pb.svg'); background-size: auto 100%"
+  ></div>
+
+  <!-- Hero Content -->
+  <div class="relative z-10 mx-auto max-w-6xl px-6 py-24">
+    <div class="max-w-2xl">
+      <!-- Hero content will go here -->
+      <div class="h-64 flex items-center justify-center border-2 border-dashed border-gray-300 rounded-lg">
+        <p class="text-gray-500 text-lg">Hero Content Area</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 @if (pageContent()) { @if (hasError()) {
 <div class="mx-auto max-w-6xl p-6">
   <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-6">
