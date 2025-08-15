@@ -20,7 +20,7 @@
 }
 
 <!-- Page Header -->
-<section class="content-section mx-auto max-w-6xl p-6">
+<section class="content-section prose-p3 mx-auto max-w-6xl p-6">
   <h1 [innerHTML]="pageContent()?.title">Hello Tailwind</h1>
   @if (pageContent()?.subtitle) {
   <h2 [innerHTML]="pageContent()?.subtitle"></h2>
@@ -32,23 +32,23 @@
 <section
   [id]="section.id"
   [class]="
-    'py-16 border-b border-gray-100 last:border-b-0 ' + (i % 2 === 0 ? 'bg-primary text-primary-foreground' : '')
+    'py-16 border-b border-gray-100 last:border-b-0 ' + (i % 2 === 0 ? '' : 'bg-primary text-primary-foreground')
   "
 >
   <!-- Section Header -->
   <div class="mx-auto max-w-6xl px-6 mb-12">
-    <h2 [class]="'text-4xl  mb-4 ' + (i % 2 === 0 ? 'text-primary-foreground' : 'text-secondary')">
+    <h2 [class]="'text-4xl mb-4 ' + (i % 2 === 0 ? 'text-gray-900' : 'text-white')">
       {{ section.heading }}
     </h2>
     @if (section.subtitle) {
-    <h3 [class]="'text-2xl mb-8 ' + (i % 2 === 0 ? 'text-primary-foreground opacity-90' : 'text-secondary')">
+    <h3 [class]="'text-2xl mb-8 ' + (i % 2 === 0 ? 'text-gray-600' : 'text-white/90')">
       {{ section.subtitle }}
     </h3>
     }
   </div>
 
   <!-- Section Content -->
-  <div [class]="'content-section mx-auto max-w-6xl px-6 ' + (i % 2 === 0 ? 'prose-brand-invert' : '')">
+  <div [class]="'content-section mx-auto max-w-6xl px-6 ' + (i % 2 === 0 ? 'prose-p3' : 'prose-p3-invert')">
     @for (content of section.content || []; track $index) {
     <!-- PARAGRAPHS -->
     @if (content.type === 'paragraph') {

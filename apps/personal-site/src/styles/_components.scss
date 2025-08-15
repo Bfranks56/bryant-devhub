@@ -8,7 +8,7 @@
     @include mixins.inter-font;
 
     .form-header {
-      @apply prose prose-brand prose-lg max-w-none text-center mb-8;
+      @apply prose prose-p3 prose-lg max-w-none text-center mb-8;
 
       h2 {
         @apply text-teal-700 font-bold;
@@ -43,10 +43,10 @@
 
   // Keep existing content sections pure Tailwind with Inter
   .content-section {
-    @apply prose prose-brand prose-lg max-w-none;
+    @apply prose prose-p3 prose-lg max-w-none;
     @include mixins.inter-font;
 
-    // Additional brand typography overrides (prose-brand handles main styling)
+    // Additional brand typography overrides (prose-p3 handles main styling)
     a {
       @apply text-teal-600 no-underline font-medium hover:text-teal-800;
     }

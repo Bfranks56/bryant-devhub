@@ -78,7 +78,7 @@ module.exports = {
         sans: ['Inter', ...defaultTheme.fontFamily.sans],
       },
       typography: theme => ({
-        brand: {
+        p3: {
           css: {
             color: theme('colors.gray.900'), // Persona 3 text color
             h1: {
@@ -91,6 +91,9 @@ module.exports = {
             h2: {
               color: theme('colors.secondary.DEFAULT'),
               fontWeight: '700',
+            },
+            p: {
+              fontWeight: '300',
             },
             a: {
               color: theme('colors.accent.DEFAULT'),
@@ -115,7 +118,7 @@ module.exports = {
           },
         },
         // Inverted version for dark backgrounds
-        'brand-invert': {
+        'p3-invert': {
           css: {
             color: theme('colors.white'),
             h1: {
@@ -136,6 +139,7 @@ module.exports = {
             },
             p: {
               color: theme('colors.primary.foreground'),
+              fontWeight: '300',
               opacity: '0.85',
             },
             a: {
