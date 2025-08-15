@@ -36,7 +36,104 @@ $gray-900: rgb(17 24 39);
 
 // Typography
 $font-family-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI',
-  sans-serif;
+  'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
 
 // Spacing (Tailwind equivalents)
 $border-radius-lg: 0.5rem; // rounded-lg
+
+
+// Persona 3
+// === Base ===
+$blue-soft:   #6d9ac7; // secondary
+$blue-rich:   #1269cc; // primary
+$cyan-bright: #51eefc; // accent
+$white:       #ffffff;
+$dark:        #303030;
+
+// === Primary (on light backgrounds) ===
+// White text on these blues ≥ 4.5:1
+$color-primary:        #1269cc; // contrast vs $white text: ~5.36:1
+$color-primary-hover:  #105eb8; // ~6.33:1
+$color-primary-active: #0f59ad; // ~6.88:1
+$on-primary:           #ffffff; // text color
+
+// === Secondary (on light backgrounds) ===
+// Dark text on these light blues ≥ 4.5:1
+$color-secondary:        #6d9ac7;
+$color-secondary-hover:  #7ca4cd;
+$color-secondary-active: #83a9cf;
+$on-secondary: #1a1a1a; // Instead of #2e2e2e - gives ~5.2:1 ratio
+
+// === Accent (callouts/links) ===
+// Very dark text on these cyans ≥ 4.5:1
+$color-accent:        #51eefc;
+$color-accent-hover:  #4bdbe8;
+$color-accent-active: #47d1de;
+$on-accent:           #111111; // e.g. on #51eefc ≈ 13.47:1
+
+// === Global text on surfaces ===
+$text-on-light: #1a1a1a; // on $white ≈ 17.40:1
+$text-on-dark:  #ffffff; // on $dark  ≈ 13.20:1
+
+// === Surface colors ===
+$surface:       #ffffff; // light surface
+$surface-dark:  #303030; // dark surface
+
+// === Optional muted text (still AA on respective surfaces) ===
+$text-muted-on-light: #4d4d4d; // on $white ≈ 7.47:1
+$text-muted-on-dark:  #d0d0d0; // on $dark  ≈ 8.56:1
+
+
+// Persona 4
+// === Base ===
+$yellow:     #ffe52c; // signature P4G yellow
+$gold:       #faa622; // orange-gold accent
+$cyan:       #7fe6ef; // cyan accent
+$lime:       #c4d70c; // lime accent
+$red:        #c22303; // alert/danger
+$white:      #ffffff;
+$dark:       #303030;
+
+// === Primary (Yellow as brand) — uses dark text for AA+ ===
+// Black text on these yellows: 14.9:1 – 16.5:1
+$color-primary:        #ffe52c; // base
+$color-primary-hover:  #ffd61a; // slightly deeper
+$color-primary-active: #ffcf00; // deeper still
+$on-primary:           #000000; // text color
+
+// === Secondary (Golden orange) — dark text for AA+ ===
+// Black text: 7.3:1 – 10.5:1
+$color-secondary:        #faa622;
+$color-secondary-hover:  #f19917;
+$color-secondary-active: #e68e0f;
+$on-secondary:           #000000;
+
+// === Accent (Cyan) — dark text for AA+ ===
+// Black text: 11.7:1 – 14.5:1
+$color-accent:        #7fe6ef;
+$color-accent-hover:  #69dbe4;
+$color-accent-active: #5fd2db;
+$on-accent:           #000000;
+
+// === Emphasis / Danger (Red) — light text for AA+ ===
+// White text: 5.94:1 – 8.42:1
+$color-danger:        #c22303;
+$color-danger-hover:  #b51f03;
+$color-danger-active: #a71c02;
+$on-danger:           #ffffff;
+
+// === Surfaces & Text ===
+$surface:       #ffffff;
+$surface-dark:  #303030;
+
+$text-on-light:        #1a1a1a;  // on white ≈ 17.4:1
+$text-muted-on-light:  #4d4d4d;  // on white ≈ 7.5:1
+
+$text-on-dark:         #ffffff;  // on #303030 ≈ 13.2:1
+$text-muted-on-dark:   #d0d0d0;  // on #303030 ≈ 8.6:1
+
+// === Link idea (uses accent with guaranteed contrast) ===
+$link:         $color-accent;
+$link-hover:   $color-accent-hover;
+$link-active:  $color-accent-active;
+$link-on:      $on-accent;

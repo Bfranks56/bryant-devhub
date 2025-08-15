@@ -6,7 +6,6 @@ import { RouterModule } from '@angular/router';
   selector: 'app-about',
   imports: [RouterModule],
   templateUrl: './about.component.html',
-  styleUrl: './about.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AboutComponent {}

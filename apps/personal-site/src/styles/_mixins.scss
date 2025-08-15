@@ -1,0 +1,16 @@
+@use 'variables' as vars;
+
+@mixin inter-font {
+  font-family: vars.$font-family-primary !important;
+}
+
+@mixin form-field-base {
+  @include inter-font;
+  border-radius: vars.$border-radius-lg;
+}
+
+@mixin button-base {
+  @include inter-font;
+  font-weight: 500;
+  border-radius: vars.$border-radius-lg !important;
+}

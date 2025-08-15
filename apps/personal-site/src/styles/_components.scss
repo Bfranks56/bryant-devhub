@@ -1,23 +1,21 @@
 @use 'variables' as vars;
+@use 'mixins';
 
 @layer components {
   // Form container that blends Material inputs with Tailwind layout
   .contact-form {
     @apply max-w-4xl mx-auto;
-    font-family: vars.$font-family-primary;
+    @include mixins.inter-font;
 
     .form-header {
-      @apply prose prose-lg prose-slate max-w-none text-center mb-8;
+      @apply prose prose-p3 prose-lg max-w-none text-center mb-8;
 
-      h1,
       h2 {
         @apply text-teal-700 font-bold;
-        font-family: vars.$font-family-primary;
       }
 
       p {
         @apply text-gray-600;
-        font-family: vars.$font-family-primary;
       }
     }
 
@@ -40,45 +38,50 @@
     // Ensure Material form fields inherit Tailwind spacing and Inter font
     .mat-mdc-form-field {
       @apply w-full;
-      font-family: vars.$font-family-primary !important;
     }
   }
 
-  // Keep  existing content sections pure Tailwind with Inter
+  // Keep existing content sections pure Tailwind with Inter
   .content-section {
-    @apply prose prose-lg prose-slate max-w-none;
-    font-family: vars.$font-family-primary;
+    @apply prose prose-p3 prose-lg max-w-none;
+    @include mixins.inter-font;
 
-    // brand typography overrides with Inter
-    h1,
-    h2,
-    h3 {
-      @apply text-teal-700;
-      font-family: vars.$font-family-primary;
-    }
-
+    // Additional brand typography overrides (prose-p3 handles main styling)
     a {
       @apply text-teal-600 no-underline font-medium hover:text-teal-800;
-      font-family: vars.$font-family-primary;
     }
 
     blockquote {
       @apply border-l-4 border-teal-500 text-gray-600 italic;
-      font-family: vars.$font-family-primary;
     }
 
     code {
       @apply text-pink-600 bg-gray-100 px-2 py-1 rounded;
-      font-family: vars.$font-family-primary;
+    }
+  }
+
+  // Alternative approach using CSS clip-path on the section itself
+  .section-diagonal {
+    clip-path: polygon(0 3rem, 100% 0, 100% calc(100% - 3rem), 0 100%);
+    margin-top: -3rem;
+    margin-bottom: -3rem;
+    padding-top: calc(4rem + 3rem);
+    padding-bottom: calc(4rem + 3rem);
+
+    &:first-child {
+      margin-top: 0;
+      padding-top: 4rem;
+      clip-path: polygon(0 0, 100% 0, 100% calc(100% - 3rem), 0 100%);
     }
 
-    p,
-    span,
-    div,
-    li,
-    td,
-    th {
-      font-family: vars.$font-family-primary;
+    &:last-child {
+      margin-bottom: 0;
+      padding-bottom: 4rem;
+      clip-path: polygon(0 3rem, 100% 0, 100% 100%, 0 100%);
+    }
+
+    &:first-child:last-child {
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
     }
   }
 }

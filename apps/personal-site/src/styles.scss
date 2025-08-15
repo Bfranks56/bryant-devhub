@@ -1,5 +1,6 @@
 @use '@angular/material' as mat;
 @use 'styles/variables' as vars;
+@use 'styles/mixins';
 @use 'styles/base';
 @use 'styles/typography';
 @use 'styles/material-overrides';

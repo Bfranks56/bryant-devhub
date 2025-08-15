@@ -6,7 +6,6 @@ import { MatButtonModule } from '@angular/material/button';
   selector: 'app-contact',
   imports: [MatButtonModule, MatDividerModule, MatIconModule],
   templateUrl: './contact.component.html',
-  styleUrl: './contact.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ContactComponent {}
