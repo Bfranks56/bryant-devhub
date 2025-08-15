@@ -31,9 +31,7 @@
 @if (pageContent()?.sections) { @for (section of pageContent()?.sections || []; track section.id; let i = $index) {
 <section
   [id]="section.id"
-  [class]="
-    'py-16 border-b border-gray-100 last:border-b-0 ' + (i % 2 === 0 ? '' : 'bg-primary text-primary-foreground')
-  "
+  [class]="'section-diagonal py-16 ' + (i % 2 === 0 ? '' : 'bg-primary text-primary-foreground')"
 >
   <!-- Section Header -->
   <div class="mx-auto max-w-6xl px-6 mb-12">
