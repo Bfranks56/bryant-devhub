@@ -2,6 +2,14 @@ export interface PageContent {
   title: string;
   subtitle?: string;
   description: string;
+  content?: ContentSection[]; // Make optional for backward compatibility
+  sections?: PageSection[]; // New sections structure
+}
+
+export interface PageSection {
+  id: string;
+  heading: string;
+  subtitle?: string;
   content: ContentSection[];
 }
 
@@ -11,7 +19,7 @@ export type ContentSection =
   | CodeSection
   | QuoteSection
   | ProjectSection
-  | SectionHeaderSection; // Add this
+  | SectionHeaderSection;
 export interface ParagraphSection {
   type: 'paragraph';
   heading?: string;
