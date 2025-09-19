@@ -1,6 +1,7 @@
 import { HOME_CONTENT } from './home.content';
 import { ABOUT_CONTENT } from './about.content';
 import { PROJECTS_CONTENT } from './projects.content';
+import { CONTACT_CONTENT } from './contact.content';
 import { PageContent } from '../../shared/interfaces/pageContent/content.dto';
 
 export const LANDING_CONTENT: PageContent = {
@@ -26,6 +27,13 @@ export const LANDING_CONTENT: PageContent = {
       id: 'projects',
       heading: 'My Projects',
       content: PROJECTS_CONTENT.content || [],
+    },
+    // Contact Section
+    {
+      id: 'contact',
+      heading: 'Get In Touch',
+      subtitle: "Let's work together",
+      content: CONTACT_CONTENT.content || [],
     },
   ],
 };

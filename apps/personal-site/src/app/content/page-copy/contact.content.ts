@@ -23,8 +23,8 @@ export const CONTACT_CONTENT: PageContent = {
 };
 
 export const CONTACT_INFO: ContactInfo = {
-  email: 'bryant@example.com',
+  email: 'bryant.franks@gmail.com',
   github: 'https://github.com/Bfranks56',
   linkedin: 'https://www.linkedin.com/in/bryantfranks/',
-  location: 'Your City, State',
+  location: 'Royal Oak, MI',
 };
