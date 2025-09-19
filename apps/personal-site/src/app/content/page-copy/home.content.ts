@@ -2,28 +2,28 @@ import { PageContent } from '../../shared/interfaces/pageContent/content.dto';
 
 export const HOME_CONTENT: PageContent = {
   title: 'Bryant Franks',
-  subtitle: 'Full Stack Developer',
+  subtitle: 'Full Stack Developer & Software Engineer',
   description:
     'Building modern web applications with Angular, Node.js, and cloud technologies.',
   content: [
     {
       type: 'paragraph',
       content:
-        "Welcome to my digital space! I'm a passionate full-stack developer who loves creating efficient, scalable web applications.",
+        "I'm a passionate full-stack developer with 5+ years of experience creating efficient, scalable web applications that solve real-world problems.",
     },
     {
       type: 'paragraph',
       content:
-        'With expertise in Angular, Node.js, and modern development practices, I enjoy tackling complex problems and turning ideas into reality.',
+        'Specializing in Angular, Node.js, and modern development practices, I transform complex requirements into elegant, performant solutions.',
     },
     {
       type: 'list',
-      heading: 'What I Do',
+      heading: 'Core Expertise',
       content: [
-        'Frontend Development with Angular & TypeScript',
-        'Backend API development with Node.js',
-        'Cloud deployment and DevOps',
-        'UI/UX design and responsive development',
+        'Frontend Development with Angular, TypeScript & Modern Frameworks',
+        'Backend API Development with Node.js, Express & Database Design',
+        'Cloud Architecture with AWS, Docker & DevOps Automation',
+        'Full-Stack Integration & Performance Optimization',
       ],
     },
   ],
