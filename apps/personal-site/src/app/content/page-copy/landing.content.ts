@@ -31,7 +31,7 @@ export const LANDING_CONTENT: PageContent = {
     // Contact Section
     {
       id: 'contact',
-      heading: 'Get In Touch',
+      heading: 'Get In Touch 1',
       subtitle: "Let's work together",
       content: CONTACT_CONTENT.content || [],
     },
