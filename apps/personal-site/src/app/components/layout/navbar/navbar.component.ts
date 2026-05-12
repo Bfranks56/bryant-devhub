@@ -1,43 +1,29 @@
-import { ChangeDetectionStrategy, Component, inject, signal, PLATFORM_ID } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { ViewportScroller } from '@angular/common';
 
 @Component({
   selector: 'app-navbar',
-  imports: [RouterModule],
+  imports: [],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NavbarComponent {
-  private platformId = inject(PLATFORM_ID);
+  private viewportScroller = inject(ViewportScroller);
   open = signal(false);
 
-  scrollToSection(sectionId: string, event?: Event) {
-    if (event) {
-      event.preventDefault();
-    }
+  constructor() {
+    this.viewportScroller.setOffset([0, 68]);
+  }
 
-    if (!isPlatformBrowser(this.platformId)) return;
-
-    const element = document.getElementById(sectionId);
-    if (element) {
-      document.documentElement.scrollTo({
-        top: element.offsetTop - 68,
-        behavior: 'smooth',
-      });
-    }
-
+  scrollToSection(sectionId: string, event?: Event): void {
+    if (event) event.preventDefault();
+    this.viewportScroller.scrollToAnchor(sectionId);
     this.open.set(false);
   }
 
-  scrollToTop() {
-    if (!isPlatformBrowser(this.platformId)) return;
-
-    document.documentElement.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
+  scrollToTop(): void {
+    this.viewportScroller.scrollToPosition([0, 0]);
     this.open.set(false);
   }
 }
