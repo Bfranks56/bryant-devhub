@@ -2,28 +2,29 @@ import { PageContent } from '../../shared/interfaces/pageContent/content.dto';
 
 export const HOME_CONTENT: PageContent = {
   title: 'Bryant Franks',
-  subtitle: 'Full Stack Developer & Software Engineer',
-  description:
-    'Building modern web applications with Angular, Node.js, and cloud technologies.',
+  subtitle: 'Angular Engineer & Full-Stack Developer',
+  description: '6 years of Angular. Growing full-stack with Spring Boot and Java.',
   content: [
     {
       type: 'paragraph',
       content:
-        "I'm a passionate full-stack developer with 5+ years of experience creating efficient, scalable web applications that solve real-world problems.",
+        "I'm a software engineer with 6 years of Angular and growing full-stack experience in Spring Boot and Java. I care about understanding systems, not just shipping features.",
     },
     {
       type: 'paragraph',
       content:
-        'Specializing in Angular, Node.js, and modern development practices, I transform complex requirements into elegant, performant solutions.',
+        'Currently contracting at a major automotive company, working on Angular 18 with Signals and Java/Spring Boot on GCP.',
     },
     {
       type: 'list',
-      heading: 'Core Expertise',
+      heading: 'What I Work With',
       content: [
-        'Frontend Development with Angular, TypeScript & Modern Frameworks',
-        'Backend API Development with Node.js, Express & Database Design',
-        'Cloud Architecture with AWS, Docker & DevOps Automation',
-        'Full-Stack Integration & Performance Optimization',
+        'Angular, TypeScript, RxJS',
+        'Spring Boot, Java',
+        'PostgreSQL',
+        'GCP (exposure)',
+        'Tailwind CSS, Angular Material',
+        'Nx monorepo',
       ],
     },
   ],

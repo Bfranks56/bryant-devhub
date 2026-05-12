@@ -8,10 +8,11 @@ import {
 
 import { ActivatedRoute } from '@angular/router';
 import { PageContent } from '../../shared/interfaces/pageContent/content.dto';
+import { SafeHtmlPipe } from '../../shared/pipes/safe-html.pipe';
 
 @Component({
   selector: 'app-default-page',
-  imports: [],
+  imports: [SafeHtmlPipe],
   templateUrl: './default-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

@@ -5,48 +5,54 @@ import {
 
 export const PROJECTS_DATA: ProjectContent[] = [
   {
-    id: 'portfolio-website',
-    title: 'Portfolio Website',
+    id: 'sneaker-inventory',
+    title: 'Sneaker Inventory App',
     description:
-      'Modern, responsive portfolio website built with Angular 20 and Tailwind CSS. Features server-side rendering, type-safe content management, and optimized performance with Nx monorepo architecture.',
+      "I built this project because I couldn't find a clean way to manage a large sneaker collection without relying on spreadsheets or generic inventory apps.<br><br>The app uses an Angular frontend backed by a Spring Boot REST API and PostgreSQL database, with JWT authentication for protected actions.<br><br>A key design decision was splitting public and private access: collection browsing is publicly accessible, inventory management is restricted to authenticated users.<br><br>The production database currently contains 102 real sneakers from my personal collection, which made the project a good exercise in building software around an actual long-term use case instead of a tutorial app.",
+    technologies: [
+      'Java 21',
+      'Spring Boot 3',
+      'PostgreSQL 15',
+      'Angular 20',
+      'JWT',
+      'Railway',
+      'Vercel',
+    ],
+    githubUrl: 'https://github.com/Bfranks56/sneaker-inventory',
+    liveUrl: 'https://sneakers.bryantfranks.com',
+    featured: true,
+  },
+  {
+    id: 'portfolio-site',
+    title: 'This Portfolio Site',
+    description:
+      'The site is built with Angular inside an Nx monorepo and uses static site generation for performance and deployment simplicity. Content is driven through typed route configuration instead of hardcoded page components.<br><br>One of the core architectural decisions was building a reusable DefaultPageComponent capable of rendering nearly every page on the site from structured route data. That reduced page-level code by roughly 90% compared to maintaining individual components for each section.<br><br>The project also uses OnPush change detection throughout to reinforce predictable rendering behavior and performance-focused design patterns.',
     technologies: [
       'Angular 20',
-      'TypeScript',
+      'Nx',
       'Tailwind CSS',
-      'Nx Workspace',
       'Angular Material',
-      'SSR',
+      'TypeScript',
+      'SSG',
     ],
     githubUrl: 'https://github.com/Bfranks56/bryant-devhub',
-    liveUrl: 'https://bryant.dev',
     featured: true,
   },
   {
-    id: 'enterprise-dashboard',
-    title: 'Enterprise Analytics Dashboard',
+    id: 'ai-assistant',
+    title: 'AI Story Bible Assistant',
     description:
-      'Comprehensive data visualization platform built for enterprise clients. Features real-time analytics, custom reporting, role-based access control, and seamless API integration.',
-    technologies: ['Angular', 'TypeScript', 'D3.js', 'Node.js', 'PostgreSQL', 'Docker'],
-    githubUrl: 'https://github.com/Bfranks56/enterprise-dashboard',
+      "I built this because I was losing context in long conversations with ChatGPT about a complex sci-fi story bible. Characters were getting contradicted, details were drifting, and there was no way to anchor the AI to what I'd already established.<br><br>The system uses FAISS for vector storage and OpenAI embeddings to semantically search 313 indexed sections across the full story bible. Queries that reference outside material trigger a hybrid retrieval path that pulls from both the local index and live web search via DuckDuckGo.<br><br>A couple of decisions worth calling out: a similarity threshold filter prevents the LLM from inventing lore when no relevant canon exists, and content expansion requests route to a staging area instead of writing directly to canon files — keeping AI suggestions separated from locked story content.<br><br>The story bible itself stays out of the public repo, but the architecture is the same pattern you'd apply to any domain-specific knowledge base.",
+    technologies: [
+      'Python',
+      'FAISS',
+      'OpenAI Embeddings',
+      'DuckDuckGo Search',
+      'Angular',
+      'RAG',
+    ],
+    badge: 'Private Repo',
     featured: true,
-  },
-  {
-    id: 'cloud-microservices',
-    title: 'Cloud Microservices Platform',
-    description:
-      'Scalable microservices architecture deployed on AWS with automated CI/CD pipelines. Handles high-traffic applications with load balancing, monitoring, and fault tolerance.',
-    technologies: ['Node.js', 'Express', 'AWS', 'Docker', 'Kubernetes', 'Redis', 'MongoDB'],
-    githubUrl: 'https://github.com/Bfranks56/cloud-microservices',
-    featured: true,
-  },
-  {
-    id: 'api-gateway',
-    title: 'RESTful API Gateway',
-    description:
-      'High-performance API gateway with authentication, rate limiting, request routing, and comprehensive logging. Built to handle thousands of concurrent requests.',
-    technologies: ['Node.js', 'Express', 'JWT', 'Redis', 'PostgreSQL', 'Swagger'],
-    githubUrl: 'https://github.com/Bfranks56/api-gateway',
-    featured: false,
   },
 ];
 
