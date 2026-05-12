@@ -61,6 +61,7 @@ export interface ProjectContent {
   liveUrl?: string;
   imageUrl?: string;
   featured: boolean;
+  badge?: string;
 }
 
 export interface ContactInfo {

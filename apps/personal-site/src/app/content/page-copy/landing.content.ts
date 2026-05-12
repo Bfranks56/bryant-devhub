@@ -6,8 +6,8 @@ import { PageContent } from '../../shared/interfaces/pageContent/content.dto';
 
 export const LANDING_CONTENT: PageContent = {
   title: 'Bryant Franks',
-  subtitle: 'Full Stack Developer & Digital Creator',
-  description: 'Building modern web applications with passion and precision',
+  subtitle: 'Angular Engineer & Full-Stack Developer.',
+  description: '6 years of Angular. Growing full-stack with Spring Boot and Java. Pretty good at Street Fighter.',
   sections: [
     // Home Section
     {
