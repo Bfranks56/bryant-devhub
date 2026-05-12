@@ -106,7 +106,7 @@ describe('DefaultPageComponent', () => {
 
     it('should render paragraph content', () => {
       const paragraphHeading = fixture.debugElement.query(By.css('h3'));
-      const paragraphContent = fixture.debugElement.query(By.css('p'));
+      const paragraphContent = fixture.debugElement.query(By.css('p.text-gray-800'));
 
       expect(paragraphHeading.nativeElement.innerHTML).toBe(
         'Test Paragraph Heading'
@@ -186,7 +186,7 @@ describe('DefaultPageComponent', () => {
     it('should display project title and description', () => {
       const projectTitle = fixture.debugElement.query(By.css('h4'));
       const projectDescription = fixture.debugElement.query(
-        By.css('.text-gray-600')
+        By.css('p.text-gray-600')
       );
 
       expect(projectTitle.nativeElement.textContent).toBe('Test Project');

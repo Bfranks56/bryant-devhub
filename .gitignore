@@ -31,7 +31,14 @@ node_modules
 /libpeerconnection.log
 npm-debug.log
 yarn-error.log
+error.log
 scratch-pad/
+
+# Copilot / AI assistant workflow files
+.github/skills/
+.github/prompts/
+.github/agents/
+AGENTS.md
 testem.log
 /typings
 
@@ -46,3 +53,7 @@ Thumbs.db
 .github/instructions/nx.instructions.md
 
 .angular
+
+.nx/polygraph
+.claude/worktrees
+.claude/settings.local.json

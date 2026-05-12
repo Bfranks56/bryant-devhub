@@ -5,7 +5,7 @@
     <button
       class="sm:hidden inline-flex items-center rounded-md border px-3 py-2 text-sm"
       aria-label="Menu"
-      (click)="open = !open"
+      (click)="open.set(!open())"
     >
       Menu
     </button>
@@ -19,7 +19,7 @@
   </div>
 
   <!-- mobile -->
-  @if (open) {
+  @if (open()) {
   <nav class="sm:hidden border-t" aria-label="Mobile">
     <div class="mx-auto max-w-6xl px-4 py-2 grid gap-2">
       <button class="cursor-pointer" (click)="scrollToTop()">Home</button>
