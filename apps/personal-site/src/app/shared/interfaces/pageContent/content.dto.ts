@@ -1,9 +1,16 @@
+export interface HeroStat {
+  value: string;
+  label: string;
+  spanFull?: boolean;
+}
+
 export interface PageContent {
   title: string;
   subtitle?: string;
-  description: string;
-  content?: ContentSection[]; // Make optional for backward compatibility
-  sections?: PageSection[]; // New sections structure
+  description?: string;
+  stats?: HeroStat[];
+  content?: ContentSection[];
+  sections?: PageSection[];
 }
 
 export interface PageSection {
