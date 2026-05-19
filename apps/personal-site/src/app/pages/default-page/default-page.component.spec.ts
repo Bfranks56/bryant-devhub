@@ -1,7 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { signal } from '@angular/core';
 import { By } from '@angular/platform-browser';
-
 import { DefaultPageComponent } from './default-page.component';
 import { ContentService } from '../../core/services/content.service';
 import {
@@ -67,7 +66,10 @@ const mockProjectContent: PageContent = {
 
 async function setup(
   pageContent: PageContent | undefined
-): Promise<{ component: DefaultPageComponent; fixture: ComponentFixture<DefaultPageComponent> }> {
+): Promise<{
+  component: DefaultPageComponent;
+  fixture: ComponentFixture<DefaultPageComponent>;
+}> {
   TestBed.resetTestingModule();
   await TestBed.configureTestingModule({
     imports: [DefaultPageComponent],
@@ -75,7 +77,8 @@ async function setup(
       {
         provide: ContentService,
         useValue: {
-          getLandingContent: () => signal(pageContent as PageContent | undefined),
+          getLandingContent: () =>
+            signal(pageContent as PageContent | undefined),
         },
       },
     ],
@@ -114,19 +117,22 @@ describe('DefaultPageComponent', () => {
     });
 
     it('should not render hero subtitle element when subtitle is absent', async () => {
-      const { fixture } = await setup({ ...mockSectionsContent, subtitle: undefined });
+      const { fixture } = await setup({
+        ...mockSectionsContent,
+        subtitle: undefined,
+      });
       const heroH2 = fixture.debugElement.query(By.css('h2.text-3xl'));
       expect(heroH2).toBeFalsy();
     });
 
     it('should render hero stats including a full-width item', async () => {
       const { fixture } = await setup(mockSectionsContent);
-      const statValues = fixture.debugElement.queryAll(By.css('.grid .text-3xl'));
-      expect(statValues.map(el => el.nativeElement.textContent.trim())).toEqual([
-        '6+',
-        'Angular',
-        'Ford',
-      ]);
+      const statValues = fixture.debugElement.queryAll(
+        By.css('.grid .text-3xl')
+      );
+      expect(statValues.map(el => el.nativeElement.textContent.trim())).toEqual(
+        ['6+', 'Angular', 'Ford']
+      );
       const fullWidthStat = fixture.debugElement.query(
         By.css('.col-span-2.lg\\:col-span-1')
       );
@@ -143,21 +149,29 @@ describe('DefaultPageComponent', () => {
 
     it('should render section headings', async () => {
       const { fixture } = await setup(mockSectionsContent);
-      const headings = fixture.debugElement.queryAll(By.css('section[id] h2.text-5xl'));
-      const headingTexts = headings.map(el => el.nativeElement.textContent.trim());
+      const headings = fixture.debugElement.queryAll(
+        By.css('section[id] h2.text-5xl')
+      );
+      const headingTexts = headings.map(el =>
+        el.nativeElement.textContent.trim()
+      );
       expect(headingTexts).toContain('Welcome');
       expect(headingTexts).toContain('My Projects');
     });
 
     it('should render paragraph content', async () => {
       const { fixture } = await setup(mockSectionsContent);
-      const p = fixture.debugElement.query(By.css('p.text-xl.text-gray-700:not(.mb-12)'));
+      const p = fixture.debugElement.query(
+        By.css('p.text-xl.text-gray-700:not(.mb-12)')
+      );
       expect(p.nativeElement.innerHTML).toBe('Hello world.');
     });
 
     it('should render list items', async () => {
       const { fixture } = await setup(mockSectionsContent);
-      const items = fixture.debugElement.queryAll(By.css('span.text-lg.text-gray-700'));
+      const items = fixture.debugElement.queryAll(
+        By.css('span.text-lg.text-gray-700')
+      );
       const texts = items.map(el => el.nativeElement.textContent.trim());
       expect(texts).toContain('Angular');
       expect(texts).toContain('TypeScript');
@@ -167,7 +181,9 @@ describe('DefaultPageComponent', () => {
   describe('Project rendering', () => {
     it('should render project cards', async () => {
       const { fixture } = await setup(mockProjectContent);
-      const cards = fixture.debugElement.queryAll(By.css('.rounded-2xl.border'));
+      const cards = fixture.debugElement.queryAll(
+        By.css('.rounded-2xl.border')
+      );
       expect(cards.length).toBe(1);
     });
 
@@ -189,9 +205,15 @@ describe('DefaultPageComponent', () => {
       const { fixture } = await setup(mockProjectContent);
       const links = fixture.debugElement.queryAll(By.css('a[target="_blank"]'));
       expect(links.length).toBe(2);
-      const github = links.find(l => l.nativeElement.textContent.includes('GitHub'));
-      const live = links.find(l => l.nativeElement.textContent.includes('Live Demo'));
-      expect(github?.nativeElement.href).toMatch(/https:\/\/github\.com\/test\/?/);
+      const github = links.find(l =>
+        l.nativeElement.textContent.includes('GitHub')
+      );
+      const live = links.find(l =>
+        l.nativeElement.textContent.includes('Live Demo')
+      );
+      expect(github?.nativeElement.href).toMatch(
+        /https:\/\/github\.com\/test\/?/
+      );
       expect(live?.nativeElement.href).toMatch(/https:\/\/test\.com\/?/);
     });
 
@@ -230,7 +252,9 @@ describe('DefaultPageComponent', () => {
     it('should show Content Unavailable in fallback section', async () => {
       const { fixture } = await setup(undefined);
       const fallbackH1 = fixture.debugElement.query(By.css('h1.mt-4'));
-      expect(fallbackH1.nativeElement.textContent.trim()).toBe('Content Unavailable');
+      expect(fallbackH1.nativeElement.textContent.trim()).toBe(
+        'Content Unavailable'
+      );
     });
 
     it('should display return home link', async () => {
