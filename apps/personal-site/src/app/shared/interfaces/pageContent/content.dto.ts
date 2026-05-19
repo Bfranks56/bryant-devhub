@@ -1,9 +1,14 @@
+export interface HeroStat {
+  label: string;
+  value: string;
+}
+
 export interface PageContent {
   title: string;
   subtitle?: string;
-  description: string;
-  content?: ContentSection[]; // Make optional for backward compatibility
-  sections?: PageSection[]; // New sections structure
+  description?: string;
+  stats?: HeroStat[];
+  sections: PageSection[];
 }
 
 export interface PageSection {
@@ -19,6 +24,7 @@ export type ContentSection =
   | CodeSection
   | QuoteSection
   | ProjectSection
+  | ContactSection
   | SectionHeaderSection;
 export interface ParagraphSection {
   type: 'paragraph';
@@ -69,6 +75,11 @@ export interface ContactInfo {
   github: string;
   linkedin: string;
   location: string;
+}
+
+export interface ContactSection {
+  type: 'contact';
+  info: ContactInfo;
 }
 
 export interface SectionHeaderSection {
