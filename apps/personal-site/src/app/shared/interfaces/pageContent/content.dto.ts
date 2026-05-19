@@ -1,6 +1,6 @@
 export interface HeroStat {
-  value: string;
   label: string;
+  value: string;
   spanFull?: boolean;
 }
 
@@ -10,7 +10,7 @@ export interface PageContent {
   description?: string;
   stats?: HeroStat[];
   content?: ContentSection[];
-  sections?: PageSection[];
+  sections: PageSection[];
 }
 
 export interface PageSection {
@@ -26,6 +26,7 @@ export type ContentSection =
   | CodeSection
   | QuoteSection
   | ProjectSection
+  | ContactSection
   | SectionHeaderSection;
 export interface ParagraphSection {
   type: 'paragraph';
@@ -76,6 +77,11 @@ export interface ContactInfo {
   github: string;
   linkedin: string;
   location: string;
+}
+
+export interface ContactSection {
+  type: 'contact';
+  info: ContactInfo;
 }
 
 export interface SectionHeaderSection {

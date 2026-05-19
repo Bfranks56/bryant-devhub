@@ -1,7 +1,11 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { ActivatedRoute } from '@angular/router';
-import { map } from 'rxjs/operators';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  Signal,
+} from '@angular/core';
+
+import { ContentService } from '../../core/services/content.service';
 import { PageContent } from '../../shared/interfaces/pageContent/content.dto';
 import { SafeHtmlPipe } from '../../shared/pipes/safe-html.pipe';
 
@@ -12,9 +16,7 @@ import { SafeHtmlPipe } from '../../shared/pipes/safe-html.pipe';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DefaultPageComponent {
-  private route = inject(ActivatedRoute);
-
-  pageContent = toSignal(
-    this.route.data.pipe(map(data => data['pageContent'] as PageContent | undefined))
-  );
+  private contentService = inject(ContentService);
+  pageContent: Signal<PageContent | undefined> =
+    this.contentService.getLandingContent();
 }
