@@ -51,8 +51,8 @@
       <!-- Quick Stats -->
       @if (pageContent()?.stats?.length) {
       <div class="grid grid-cols-2 lg:grid-cols-3 gap-8 text-center">
-        @for (stat of pageContent()!.stats!; track stat.value) {
-        <div [class]="'text-center' + (stat.spanFull ? ' col-span-2 lg:col-span-1' : '')">
+        @for (stat of pageContent()?.stats ?? []; track stat.value) {
+        <div [class]="stat.spanFull ? 'text-center col-span-2 lg:col-span-1' : 'text-center'">
           <div class="text-3xl font-bold text-blue-600 mb-2">{{ stat.value }}</div>
           <div class="text-gray-600">{{ stat.label }}</div>
         </div>
