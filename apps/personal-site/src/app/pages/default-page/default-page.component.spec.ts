@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { signal } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { provideHttpClient } from '@angular/common/http';
+
 import { DefaultPageComponent } from './default-page.component';
 import { ContentService } from '../../core/services/content.service';
 import {
@@ -19,10 +19,15 @@ const mockProjectEntry: ProjectContent = {
   featured: true,
 };
 
-const mockLandingContent: PageContent = {
+const mockSectionsContent: PageContent = {
   title: 'Bryant Franks',
   subtitle: 'Angular Engineer',
   description: '6 years of Angular.',
+  stats: [
+    { value: '6+', label: 'Years Angular' },
+    { value: 'Angular', label: '+ Spring Boot' },
+    { value: 'Ford', label: 'Motor Co. (Current)', spanFull: true },
+  ],
   sections: [
     {
       id: 'home',
@@ -42,147 +47,197 @@ const mockLandingContent: PageContent = {
   ],
 };
 
-describe('DefaultPageComponent', () => {
-  let component: DefaultPageComponent;
-  let fixture: ComponentFixture<DefaultPageComponent>;
-  let mockContentService: Partial<ContentService>;
-
-  beforeEach(async () => {
-    mockContentService = {
-      getLandingContent: () => signal(mockLandingContent),
-    };
-
-    await TestBed.configureTestingModule({
-      imports: [DefaultPageComponent],
-      providers: [
-        provideHttpClient(),
-        { provide: ContentService, useValue: mockContentService },
+const mockProjectContent: PageContent = {
+  title: 'Projects',
+  subtitle: 'My Work',
+  sections: [
+    {
+      id: 'projects',
+      heading: 'Featured Projects',
+      content: [
+        {
+          type: 'projects',
+          heading: 'Featured',
+          content: [mockProjectEntry],
+        },
       ],
-    }).compileComponents();
+    },
+  ],
+};
 
-    fixture = TestBed.createComponent(DefaultPageComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+async function setup(
+  pageContent: PageContent | undefined
+): Promise<{ component: DefaultPageComponent; fixture: ComponentFixture<DefaultPageComponent> }> {
+  TestBed.resetTestingModule();
+  await TestBed.configureTestingModule({
+    imports: [DefaultPageComponent],
+    providers: [
+      {
+        provide: ContentService,
+        useValue: {
+          getLandingContent: () => signal(pageContent as PageContent | undefined),
+        },
+      },
+    ],
+  }).compileComponents();
 
-  describe('Component Creation', () => {
-    it('should create', () => {
+  const fixture = TestBed.createComponent(DefaultPageComponent);
+  const component = fixture.componentInstance;
+  fixture.detectChanges();
+  return { component, fixture };
+}
+
+describe('DefaultPageComponent', () => {
+  describe('Component creation', () => {
+    it('should create', async () => {
+      const { component } = await setup(mockSectionsContent);
       expect(component).toBeTruthy();
     });
 
-    it('should expose pageContent from ContentService', () => {
-      const content = component.pageContent();
-      expect(content.title).toBe('Bryant Franks');
-      expect(content.sections.length).toBe(2);
+    it('should load pageContent from ContentService', async () => {
+      const { component } = await setup(mockSectionsContent);
+      expect(component.pageContent()).toEqual(mockSectionsContent);
     });
   });
 
-  describe('Hero section rendering', () => {
-    it('should render the hero title', () => {
+  describe('Hero section', () => {
+    it('should display page title in h1', async () => {
+      const { fixture } = await setup(mockSectionsContent);
       const h1 = fixture.debugElement.query(By.css('h1'));
-      expect(h1.nativeElement.innerHTML).toContain('Bryant Franks');
+      expect(h1.nativeElement.innerHTML).toBe('Bryant Franks');
     });
 
-    it('should render the hero subtitle when present', () => {
-      const h2 = fixture.debugElement.query(By.css('h2'));
-      expect(h2.nativeElement.innerHTML).toContain('Angular Engineer');
+    it('should display subtitle in hero h2', async () => {
+      const { fixture } = await setup(mockSectionsContent);
+      const h2 = fixture.debugElement.query(By.css('h2.text-3xl'));
+      expect(h2.nativeElement.innerHTML).toBe('Angular Engineer');
     });
 
-    it('should render the hero description when present', () => {
-      const p = fixture.debugElement.query(By.css('p.text-xl.lg\\:text-2xl'));
-      expect(p.nativeElement.innerHTML).toContain('6 years of Angular');
+    it('should not render hero subtitle element when subtitle is absent', async () => {
+      const { fixture } = await setup({ ...mockSectionsContent, subtitle: undefined });
+      const heroH2 = fixture.debugElement.query(By.css('h2.text-3xl'));
+      expect(heroH2).toBeFalsy();
+    });
+
+    it('should render hero stats including a full-width item', async () => {
+      const { fixture } = await setup(mockSectionsContent);
+      const statValues = fixture.debugElement.queryAll(By.css('.grid .text-3xl'));
+      expect(statValues.map(el => el.nativeElement.textContent.trim())).toEqual([
+        '6+',
+        'Angular',
+        'Ford',
+      ]);
+      const fullWidthStat = fixture.debugElement.query(
+        By.css('.col-span-2.lg\\:col-span-1')
+      );
+      expect(fullWidthStat).toBeTruthy();
     });
   });
 
   describe('Sections rendering', () => {
-    it('should render a section for each PageSection', () => {
+    it('should render a section for each PageSection', async () => {
+      const { fixture } = await setup(mockSectionsContent);
       const sections = fixture.debugElement.queryAll(By.css('section[id]'));
       expect(sections.length).toBe(2);
     });
 
-    it('should render section headings', () => {
-      const sectionHeadings = fixture.debugElement.queryAll(
-        By.css('section[id] h2')
-      );
-      const headingTexts = sectionHeadings.map(el =>
-        el.nativeElement.textContent.trim()
-      );
+    it('should render section headings', async () => {
+      const { fixture } = await setup(mockSectionsContent);
+      const headings = fixture.debugElement.queryAll(By.css('section[id] h2.text-5xl'));
+      const headingTexts = headings.map(el => el.nativeElement.textContent.trim());
       expect(headingTexts).toContain('Welcome');
       expect(headingTexts).toContain('My Projects');
     });
 
-    it('should render paragraph content', () => {
-      const paras = fixture.debugElement.queryAll(
-        By.css('section[id] p.text-xl.text-gray-700')
-      );
-      const texts = paras.map(
-        (el: { nativeElement: HTMLElement }) => el.nativeElement.innerHTML
-      );
-      expect(texts.some(t => t.includes('Hello world.'))).toBe(true);
+    it('should render paragraph content', async () => {
+      const { fixture } = await setup(mockSectionsContent);
+      const p = fixture.debugElement.query(By.css('p.text-xl.text-gray-700:not(.mb-12)'));
+      expect(p.nativeElement.innerHTML).toBe('Hello world.');
     });
 
-    it('should render list items', () => {
-      const listItems = fixture.debugElement.queryAll(
-        By.css('.flex.items-start.space-x-3 span')
-      );
-      const texts = listItems.map(el => el.nativeElement.textContent.trim());
+    it('should render list items', async () => {
+      const { fixture } = await setup(mockSectionsContent);
+      const items = fixture.debugElement.queryAll(By.css('span.text-lg.text-gray-700'));
+      const texts = items.map(el => el.nativeElement.textContent.trim());
       expect(texts).toContain('Angular');
       expect(texts).toContain('TypeScript');
     });
   });
 
-  describe('Projects rendering', () => {
-    it('should render project cards', () => {
-      const cards = fixture.debugElement.queryAll(By.css('.group.rounded-2xl'));
+  describe('Project rendering', () => {
+    it('should render project cards', async () => {
+      const { fixture } = await setup(mockProjectContent);
+      const cards = fixture.debugElement.queryAll(By.css('.rounded-2xl.border'));
       expect(cards.length).toBe(1);
     });
 
-    it('should display project title', () => {
-      const projectTitle = fixture.debugElement.query(By.css('h4'));
-      expect(projectTitle.nativeElement.textContent.trim()).toBe(
-        'Test Project'
-      );
+    it('should display project title and description', async () => {
+      const { fixture } = await setup(mockProjectContent);
+      const title = fixture.debugElement.query(By.css('h4'));
+      const desc = fixture.debugElement.query(By.css('p.text-gray-600.mb-6'));
+      expect(title.nativeElement.textContent.trim()).toBe('Test Project');
+      expect(desc.nativeElement.innerHTML).toBe('A test project');
     });
 
-    it('should render technology tags', () => {
-      const techTags = fixture.debugElement.queryAll(
-        By.css('.bg-blue-50.text-blue-700')
-      );
-      const texts = techTags.map(el => el.nativeElement.textContent.trim());
-      expect(texts).toContain('Angular');
-      expect(texts).toContain('TypeScript');
+    it('should render technology tags', async () => {
+      const { fixture } = await setup(mockProjectContent);
+      const tags = fixture.debugElement.queryAll(By.css('.bg-blue-50'));
+      expect(tags.length).toBe(2);
     });
 
-    it('should render GitHub and Live Demo links', () => {
-      const externalLinks = fixture.debugElement.queryAll(
-        By.css('a[target="_blank"]')
-      );
-      const hrefs = externalLinks.map(el =>
-        el.nativeElement.getAttribute('href')
-      );
-      expect(hrefs).toContain('https://github.com/test');
-      expect(hrefs).toContain('https://test.com');
+    it('should display GitHub and Live Demo links', async () => {
+      const { fixture } = await setup(mockProjectContent);
+      const links = fixture.debugElement.queryAll(By.css('a[target="_blank"]'));
+      expect(links.length).toBe(2);
+      const github = links.find(l => l.nativeElement.textContent.includes('GitHub'));
+      const live = links.find(l => l.nativeElement.textContent.includes('Live Demo'));
+      expect(github?.nativeElement.href).toMatch(/https:\/\/github\.com\/test\/?/);
+      expect(live?.nativeElement.href).toMatch(/https:\/\/test\.com\/?/);
+    });
+
+    it('should show badge when no URLs provided', async () => {
+      const noUrlContent: PageContent = {
+        title: 'Projects',
+        sections: [
+          {
+            id: 'projects',
+            heading: 'Projects',
+            content: [
+              {
+                type: 'projects',
+                content: [
+                  {
+                    id: 'p2',
+                    title: 'Private Project',
+                    description: 'No links',
+                    technologies: ['Python'],
+                    featured: false,
+                    badge: 'Private Repo',
+                  },
+                ] as ProjectContent[],
+              },
+            ],
+          },
+        ],
+      };
+      const { fixture } = await setup(noUrlContent);
+      const badge = fixture.debugElement.query(By.css('.bg-amber-50'));
+      expect(badge.nativeElement.textContent.trim()).toContain('Private Repo');
     });
   });
 
   describe('Fallback when no pageContent', () => {
-    it('should show Content Unavailable section when pageContent signal returns falsy', () => {
-      mockContentService.getLandingContent = () =>
-        signal(null as unknown as PageContent);
-      const fallbackFixture = TestBed.createComponent(DefaultPageComponent);
-      fallbackFixture.detectChanges();
+    it('should show Content Unavailable in fallback section', async () => {
+      const { fixture } = await setup(undefined);
+      const fallbackH1 = fixture.debugElement.query(By.css('h1.mt-4'));
+      expect(fallbackH1.nativeElement.textContent.trim()).toBe('Content Unavailable');
+    });
 
-      const fallbackTitle = fallbackFixture.debugElement.query(
-        By.css('h1.mt-4')
-      );
-      if (fallbackTitle) {
-        expect(fallbackTitle.nativeElement.textContent.trim()).toBe(
-          'Content Unavailable'
-        );
-      } else {
-        // If Angular does not enter the @else branch, just verify no crash occurred
-        expect(fallbackFixture.componentInstance).toBeTruthy();
-      }
+    it('should display return home link', async () => {
+      const { fixture } = await setup(undefined);
+      const link = fixture.debugElement.query(By.css('a[href="/"]'));
+      expect(link).toBeTruthy();
+      expect(link.nativeElement.textContent.trim()).toBe('Return to Home');
     });
   });
 });

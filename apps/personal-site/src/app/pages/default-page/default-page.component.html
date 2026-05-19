@@ -49,20 +49,16 @@
       </div>
 
       <!-- Quick Stats -->
+      @if (pageContent()?.stats?.length) {
       <div class="grid grid-cols-2 lg:grid-cols-3 gap-8 text-center">
-        <div>
-          <div class="text-3xl font-bold text-blue-600 mb-2">6+</div>
-          <div class="text-gray-600">Years Angular</div>
+        @for (stat of pageContent()!.stats!; track stat.value) {
+        <div [class]="'text-center' + (stat.spanFull ? ' col-span-2 lg:col-span-1' : '')">
+          <div class="text-3xl font-bold text-blue-600 mb-2">{{ stat.value }}</div>
+          <div class="text-gray-600">{{ stat.label }}</div>
         </div>
-        <div>
-          <div class="text-3xl font-bold text-blue-600 mb-2">Angular</div>
-          <div class="text-gray-600">+ Spring Boot</div>
-        </div>
-        <div class="col-span-2 lg:col-span-1">
-          <div class="text-3xl font-bold text-blue-600 mb-2">Ford</div>
-          <div class="text-gray-600">Motor Co. (Current)</div>
-        </div>
+        }
       </div>
+      }
     </div>
   </div>
 </section>
@@ -217,7 +213,7 @@
           </div>
           <h4 class="text-lg font-semibold mb-2">Email</h4>
           <a href="mailto:bryant.franks@gmail.com" class="text-blue-600 hover:text-blue-700 transition-colors">
-            bryant.franks@gmail.com
+            bryant.franks&#64;gmail.com
           </a>
         </div>
 

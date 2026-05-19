@@ -17,5 +17,5 @@ import { SafeHtmlPipe } from '../../shared/pipes/safe-html.pipe';
 })
 export class DefaultPageComponent {
   private contentService = inject(ContentService);
-  pageContent: Signal<PageContent> = this.contentService.getLandingContent();
+  pageContent: Signal<PageContent | undefined> = this.contentService.getLandingContent();
 }

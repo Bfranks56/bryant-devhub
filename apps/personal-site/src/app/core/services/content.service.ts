@@ -52,6 +52,11 @@ export class ContentService {
       subtitle: 'Angular Engineer & Full-Stack Developer.',
       description:
         '6 years of Angular. Growing full-stack with Spring Boot and Java. Pretty good at Street Fighter.',
+      stats: [
+        { value: '6+', label: 'Years Angular' },
+        { value: 'Angular', label: '+ Spring Boot' },
+        { value: 'Ford', label: 'Motor Co. (Current)', spanFull: true },
+      ],
       sections: [
         ...HOME_SECTIONS,
         ...ABOUT_SECTIONS,

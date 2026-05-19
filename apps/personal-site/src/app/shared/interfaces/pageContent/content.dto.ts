@@ -1,6 +1,7 @@
 export interface HeroStat {
   label: string;
   value: string;
+  spanFull?: boolean;
 }
 
 export interface PageContent {
@@ -8,6 +9,7 @@ export interface PageContent {
   subtitle?: string;
   description?: string;
   stats?: HeroStat[];
+  content?: ContentSection[];
   sections: PageSection[];
 }
 
