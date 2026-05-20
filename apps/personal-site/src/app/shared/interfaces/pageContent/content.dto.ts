@@ -4,12 +4,18 @@ export interface HeroStat {
   spanFull?: boolean;
 }
 
+export interface CtaButton {
+  label: string;
+  fragment: string;
+  variant: 'primary' | 'secondary';
+}
+
 export interface PageContent {
   title: string;
   subtitle?: string;
   description?: string;
   stats?: HeroStat[];
-  content?: ContentSection[];
+  ctas?: CtaButton[];
   sections: PageSection[];
 }
 

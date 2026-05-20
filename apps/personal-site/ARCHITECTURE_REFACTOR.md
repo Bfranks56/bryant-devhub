@@ -1,10 +1,10 @@
 # Personal Site — Architecture Refactor Tracker
 
-Findings from architectural review on **May 12, 2026**.
+Findings from architectural review on **May 12, 2026**. Diagram reflects current implemented architecture.
 
 ---
 
-## Architecture Diagram — Proposed Data Flow
+## Architecture Diagram — Current Data Flow
 
 ```mermaid
 flowchart TD
@@ -12,44 +12,43 @@ flowchart TD
         HC["home.content.ts\nHOME_SECTIONS: PageSection[]"]
         AC["about.content.ts\nABOUT_SECTIONS: PageSection[]"]
         PC["projects.content.ts\nPROJECTS_SECTIONS: PageSection[]"]
-        CC["contact.content.ts\nCONTACT_SECTIONS: PageSection[]"]
+        CC["contact.content.ts\nCONTACT_SECTIONS: PageSection[]\nCONTACT_INFO: ContactInfo"]
     end
 
-    subgraph MODEL["📐 Data Model — shared/interfaces/content.model.ts"]
+    subgraph MODEL["📐 Data Model — shared/interfaces/content.dto.ts"]
         direction TB
-        PCI["PageContent\n─────────────\ntitle: string\nsubtitle?: string\ndescription?: string\nstats?: HeroStat[]\nsections: PageSection[]"]
+        PCI["PageContent\n─────────────\ntitle: string\nsubtitle?: string\ndescription?: string\nstats?: HeroStat[]\nctas?: CtaButton[]\nsections: PageSection[]"]
         PSI["PageSection\n─────────────\nid: string\nheading: string\nsubtitle?: string\ncontent: ContentSection[]"]
         CSI["ContentSection\n─────────────\ntype: 'paragraph'\n    | 'list'\n    | 'projects'\n    | 'contact'"]
         PCI --> PSI --> CSI
     end
 
     subgraph SERVICE["⚙️ Core Layer — core/services/content.service.ts"]
-        CS["ContentService\n─────────────────────────────\ngetHomeContent(): Signal‹PageContent›\ngetAboutContent(): Signal‹PageContent›\ngetProjectsContent(): Signal‹PageContent›\ngetContactContent(): Signal‹PageContent›\n─────────────────────────────\nToday: signal(staticData)\nFuture: toSignal(http.get('/api/...'))"]
+        CS["ContentService\n─────────────────────────────\ngetLandingContent(): Signal‹PageContent›\n─────────────────────────────\nToday: signal(staticData)\nFuture: toSignal(http.get('/api/...'))"]
     end
 
-    subgraph ROUTES["🗺️ Router — app.routes.ts"]
-        R1["/ → HomeComponent"]
-        R2["/about → AboutComponent"]
-        R3["/projects → ProjectsComponent"]
-        R4["/contact → ContactComponent"]
-        R5["/** → NotFoundComponent"]
+    subgraph ROUTER["🗺️ Router — app.config.ts / app.routes.ts"]
+        R1["/ → DefaultPageComponent"]
+        R2["/** → redirect '/'"]
+        RM["withInMemoryScrolling\nanchorScrolling: 'enabled'\nscrollPositionRestoration: 'enabled'"]
     end
 
-    subgraph PAGES["📄 Page Components — pages/"]
-        HOME["HomeComponent\ninject ContentService\n.getHomeContent()"]
-        ABOUT["AboutComponent\ninject ContentService\n.getAboutContent()"]
-        PROJ["ProjectsComponent\ninject ContentService\n.getProjectsContent()"]
-        CONT["ContactComponent\ninject ContentService\n.getContactContent()"]
+    subgraph NAV["🧭 NavbarComponent"]
+        NB["[routerLink]=\"['/']\" [fragment]=\"'about'\"\n[routerLink]=\"['/']\" [fragment]=\"'projects'\"\n[routerLink]=\"['/']\" [fragment]=\"'contact'\""]
+    end
+
+    subgraph PAGE["📄 DefaultPageComponent — pages/default-page/"]
+        DP["inject ContentService\n.getLandingContent()\n~13 lines of template"]
     end
 
     subgraph SHARED["🧩 Shared Components — shared/components/"]
-        HERO["HeroSectionComponent\n@Input: title, subtitle\ndescription, stats"]
-        PGSEC["PageSectionComponent\n@Input: section: PageSection\nOwns: heading, bg alternation"]
-        CB["ContentBlockComponent\n@switch dispatcher\n@Input: content: ContentSection"]
-        PAR["ParagraphBlockComponent\n@Input: ParagraphSection"]
-        LIST["ListBlockComponent\n@Input: ListSection"]
-        PROJB["ProjectsBlockComponent\n@Input: ProjectSection"]
-        CONTB["ContactBlockComponent\n@Input: ContactSection\n(no hardcoded data)"]
+        HERO["HeroSectionComponent\ntitle, subtitle, description\nstats, CTA buttons (fragment links)"]
+        PGSEC["PageSectionComponent\n[id]=section.id ← scroll target\nbg alternation by index"]
+        CB["ContentBlockComponent\n@switch dispatcher"]
+        PAR["ParagraphBlockComponent\nParagraphSection"]
+        LIST["ListBlockComponent\nListSection"]
+        PROJB["ProjectsBlockComponent\nProjectSection"]
+        CONTB["ContactBlockComponent\nContactSection (no hardcoded data)"]
     end
 
     HC --> CS
@@ -57,22 +56,13 @@ flowchart TD
     PC --> CS
     CC --> CS
 
-    CS -->|"Signal‹PageContent›"| HOME
-    CS -->|"Signal‹PageContent›"| ABOUT
-    CS -->|"Signal‹PageContent›"| PROJ
-    CS -->|"Signal‹PageContent›"| CONT
+    CS -->|"Signal‹PageContent›"| DP
+    R1 --> DP
+    RM -.->|"fragment scroll"| R1
+    NB -->|"/#about\n/#projects\n/#contact"| PGSEC
 
-    R1 --> HOME
-    R2 --> ABOUT
-    R3 --> PROJ
-    R4 --> CONT
-
-    HOME --> HERO
-    HOME --> PGSEC
-    ABOUT --> PGSEC
-    PROJ --> PGSEC
-    CONT --> PGSEC
-
+    DP --> HERO
+    DP -->|"@for section"| PGSEC
     PGSEC -->|"@for ContentSection"| CB
     CB -->|"'paragraph'"| PAR
     CB -->|"'list'"| LIST
@@ -82,8 +72,9 @@ flowchart TD
     style DATA fill:#f0f9ff,stroke:#0ea5e9
     style MODEL fill:#fefce8,stroke:#eab308
     style SERVICE fill:#f0fdf4,stroke:#22c55e
-    style ROUTES fill:#fdf4ff,stroke:#a855f7
-    style PAGES fill:#fff7ed,stroke:#f97316
+    style ROUTER fill:#fdf4ff,stroke:#a855f7
+    style NAV fill:#f5f3ff,stroke:#8b5cf6
+    style PAGE fill:#fff7ed,stroke:#f97316
     style SHARED fill:#fff1f2,stroke:#f43f5e
 ```
 
@@ -93,22 +84,22 @@ flowchart TD
 
 Ordered by dependency and MVP impact. Each step unblocks the next.
 
-| Order  | Issue | Description                                                                               | Status                    |
-| ------ | ----- | ----------------------------------------------------------------------------------------- | ------------------------- |
-| **1**  | #5    | Fix `PageContent` model — drop `content[]`, `sections[]` is the contract everywhere       | `[x] Done — May 19, 2026` |
-| **2**  | #8    | `ContentService` — insert the CMS seam, components stop importing constants directly      | `[x] Done — May 19, 2026` |
-| **3**  | #2    | God component decomposition — `@switch` dispatcher + block components                     | `[ ] Todo`                |
-| **4**  | #9    | Move hardcoded contact data into content files (done in same pass as #2)                  | `[ ] Todo`                |
-| **5**  | #3    | `SafeHtmlPipe` audit — enforce consistently across all new leaf components                | `[ ] Todo`                |
-| **6**  | #1    | Real routing — `/`, `/about`, `/projects`, `/contact` wired to page components            | `[ ] Todo`                |
-| **7**  | #10   | 404 route — replace wildcard redirect with `NotFoundComponent`                            | `[ ] Todo`                |
-| **8**  | #12   | Visual redesign — replace cookie-cutter Tailwind aesthetic with a distinct personal style | `[ ] Todo`                |
-| **9**  | #13   | Unit tests — 80% coverage enforced via SonarCloud quality gate                            | `[ ] Post-MVP`            |
-| **10** | #14   | CI/CD pipeline — GitHub Actions + SonarCloud with quality gate on PRs                     | `[ ] Post-MVP`            |
-| **11** | #15   | E2E tests — Cypress smoke suite covering routing, SSR hydration, and key UI               | `[ ] Post-MVP`            |
-| **12** | #4    | Eager loading review — low value now, revisit if content grows significantly              | `[ ] Post-MVP`            |
-| **13** | #6    | Rename `.dto.ts` → `.model.ts`                                                            | `[ ] Post-MVP`            |
-| **14** | #7    | `export type` cleanup in barrel `index.ts`                                                | `[ ] Post-MVP`            |
+| Order  | Issue | Description                                                                                                     | Status                    |
+| ------ | ----- | --------------------------------------------------------------------------------------------------------------- | ------------------------- |
+| **1**  | #5    | Fix `PageContent` model — drop `content[]`, `sections[]` is the contract everywhere                             | `[x] Done — May 19, 2026` |
+| **2**  | #8    | `ContentService` — insert the CMS seam, components stop importing constants directly                            | `[x] Done — May 19, 2026` |
+| **3**  | #2    | God component decomposition — `@switch` dispatcher + block components                                           | `[x] Done — May 20, 2026` |
+| **4**  | #9    | Move hardcoded contact data into content files (done in same pass as #2)                                        | `[x] Done — May 20, 2026` |
+| **5**  | #3    | `SafeHtmlPipe` audit — enforce consistently across all new leaf components                                      | `[x] Done — May 20, 2026` |
+| **6**  | #1    | Fragment routing — `withInMemoryScrolling` + anchor nav on single `/` route (replaces separate page components) | `[x] Done — May 20, 2026` |
+| **7**  | #10   | 404 route — replace wildcard redirect with `NotFoundComponent`                                                  | `[ ] Todo`                |
+| **8**  | #12   | Visual redesign — replace cookie-cutter Tailwind aesthetic with a distinct personal style                       | `[ ] Todo`                |
+| **9**  | #13   | Unit tests — 80% coverage enforced via SonarCloud quality gate                                                  | `[ ] Post-MVP`            |
+| **10** | #14   | CI/CD pipeline — GitHub Actions + SonarCloud with quality gate on PRs                                           | `[ ] Post-MVP`            |
+| **11** | #15   | E2E tests — Cypress smoke suite covering routing, SSR hydration, and key UI                                     | `[ ] Post-MVP`            |
+| **12** | #4    | Eager loading review — low value now, revisit if content grows significantly                                    | `[ ] Post-MVP`            |
+| **13** | #6    | Rename `.dto.ts` → `.model.ts`                                                                                  | `[ ] Post-MVP`            |
+| **14** | #7    | `export type` cleanup in barrel `index.ts`                                                                      | `[ ] Post-MVP`            |
 
 ---
 
@@ -288,11 +279,15 @@ src/app/
 
 ### Acceptance Criteria
 
-- [ ] `default-page.component.html` is ≤ 25 lines
-- [ ] No `@if (content.type === ...)` chains remain in any parent template
-- [ ] Each block component receives a typed input matching its interface (not `ContentSection`)
-- [ ] All new components use `OnPush` and are standalone
-- [ ] `SafeHtmlPipe` is applied consistently wherever `[innerHTML]` is used
+- [x] `default-page.component.html` is ≤ 25 lines
+- [x] No `@if (content.type === ...)` chains remain in any parent template
+- [x] The `@if (section.id === 'contact')` special-case block is deleted — `ContactBlockComponent` replaces it entirely
+- [x] `ContactSection` is kept in the discriminated union — `ContactBlockComponent` receives it as a typed input and renders from `section.info`
+- [x] Each block component receives a typed input matching its interface (not `ContentSection`)
+- [x] All new components use `OnPush` and are standalone
+- [x] `SafeHtmlPipe` is applied consistently wherever `[innerHTML]` is used
+
+> **Completed May 20, 2026.** 6 new components created. `DefaultPageComponent` template reduced to 13 lines.
 
 ---
 
@@ -385,13 +380,51 @@ src/app/core/
 
 ## Issue #9 — Hardcoded Data in Template
 
-Move all personal contact data out of the template into `contact.content.ts` (or a dedicated `site-config.ts` constant):
+### Problem
+
+The `@if (section.id === 'contact')` special-case block in `DefaultPageComponent` hardcodes three personal contact strings directly in the template:
 
 - `bryant.franks@gmail.com`
 - `https://github.com/Bfranks56`
 - `Royal Oak, MI`
 
-`ContactBlockComponent` (from Issue #2) should receive this from its input, not from hardcoded markup.
+### Solution
+
+`CONTACT_INFO` already exists in `contact.content.ts` with the correct values. The fix is wiring it into the existing `ContactSection` model shape so `ContactBlockComponent` can render from a typed input.
+
+**Step 1 — Add the `contact` entry to `CONTACT_SECTIONS`:**
+
+```typescript
+// contact.content.ts — add to the content array of the contact section
+{ type: 'contact', info: CONTACT_INFO }
+```
+
+**Step 2 — `ContactBlockComponent` receives `ContactSection` as input:**
+
+```typescript
+// contact-block.component.ts
+export class ContactBlockComponent {
+  section = input.required<ContactSection>();
+}
+// Template renders section.info.email, section.info.github, section.info.location
+```
+
+**Step 3 — Delete the `@if (section.id === 'contact')` block** from `DefaultPageComponent`. `ContentBlockComponent`'s `@case ('contact')` handles it.
+
+### Result
+
+- Zero hardcoded personal data in any template
+- Single source of truth: one edit in `contact.content.ts` propagates everywhere
+- `ContactSection` stays in the discriminated union — it is used, not bypassed
+
+### Acceptance Criteria
+
+- [x] `{ type: 'contact', info: CONTACT_INFO }` added to `CONTACT_SECTIONS` content array
+- [x] `ContactBlockComponent` renders all contact info from `section.info` — no hardcoded strings in template
+- [x] `@if (section.id === 'contact')` block deleted from `DefaultPageComponent`
+- [x] `CONTACT_INFO` remains the single source of truth in `contact.content.ts`
+
+> **Completed May 20, 2026.** Done in the same pass as Issue #2.
 
 ---
 
@@ -407,29 +440,61 @@ Update `app.routes.server.ts` to prerender the 404 path.
 
 ---
 
-## Issue #1 — Routing Plan
+## Issue #1 — Routing: Fragment Navigation on a Single Scrollable Page
 
-> To be detailed after god component and ContentService work is complete.
+### Decision
 
-- Add routes: `/`, `/about`, `/projects`, `/contact`
-- Wire existing `about/`, `contact/` page component folders to real routes
-- Each route's component injects `ContentService` and calls the appropriate method
-- Remove `data: { pageContent: ... }` route data pattern — components own their content fetch via the service
-- Update `app.routes.server.ts` prerender paths to include all routes
+**Separate per-page route components are not the right fit for a portfolio UX. Fragment-based navigation on a single `/` route is.**
+
+Routing to `/about`, `/projects`, `/contact` as distinct page components forces a full component destroy/recreate on every nav click. The user loses scroll position, Angular tears down and rebuilds the page, and the experience feels like a traditional multi-page site. That works against the seamless one-page feel that is the correct UX for a portfolio.
+
+### Decided Approach — `withInMemoryScrolling` + Anchor Navigation
+
+- `DefaultPageComponent` stays at `/` as the single scrollable page — no structural change
+- `withInMemoryScrolling({ anchorScrolling: 'enabled', scrollPositionRestoration: 'enabled' })` added to `provideRouter` in `app.config.ts`
+- Navbar links updated to use Router fragment navigation: `[routerLink]="['/']" [fragment]="'about'"` etc.
+- `PageSectionComponent` renders each section with `[id]="section.id"` — the data-driven `id` is the scroll target
+- URL updates to `/#about`, `/#projects`, `/#contact` on nav click — deep-linking and browser back/forward both work
+
+### What This Replaces
+
+The original plan to create separate `HomeComponent`, `AboutComponent`, `ProjectsComponent`, `ContactComponent` page components is dropped. The `about/` and `contact/` stub component folders remain as-is (unused stubs) until the 404 and visual redesign passes clarify whether standalone pages are needed.
+
+### SSR Impact
+
+Zero. Prerender still targets `**` → `RenderMode.Prerender` in `app.routes.server.ts` — only one route exists.
+
+### Acceptance Criteria
+
+- [x] `withInMemoryScrolling({ anchorScrolling: 'enabled', scrollPositionRestoration: 'enabled' })` added to `provideRouter` in `app.config.ts`
+- [x] Navbar links use `[routerLink]` + `[fragment]` instead of raw `href="#..."` anchors
+- [x] Clicking a nav link scrolls to the correct section and updates the URL fragment
+- [x] Browser back/forward restores scroll position correctly
+
+> **Completed May 20, 2026.** `NavbarComponent` refactored to use `RouterLink` + `[fragment]`. `goHome()` method replaces scroll-to-top. `Router` injected. Tests updated with `provideRouter([])`.
 
 ---
 
 ## Issue #3 — innerHTML / SafeHtmlPipe Audit
 
-> To be resolved during decomposition — easier to audit and enforce per leaf component.
+> Applied in the same pass as Issue #2 — leaf components are the correct enforcement point.
 
-Locations currently using raw `[innerHTML]` without pipe:
+Each leaf component is small enough that all `[innerHTML]` bindings are audited at creation time. The god component made this hard; leaf components make it impossible to miss.
 
-- Hero `h1` title
-- Hero `h2` subtitle
-- Hero `p` description
-- `content.heading` in paragraph blocks
-- `item` in list blocks
+### Binding Inventory
+
+| Component                 | Binding                               | Needs pipe            |
+| ------------------------- | ------------------------------------- | --------------------- |
+| `HeroSectionComponent`    | `[innerHTML]="title"`                 | Yes                   |
+| `HeroSectionComponent`    | `[innerHTML]="subtitle"`              | Yes                   |
+| `HeroSectionComponent`    | `[innerHTML]="description"`           | Yes                   |
+| `ParagraphBlockComponent` | `[innerHTML]="section.heading"`       | Yes                   |
+| `ParagraphBlockComponent` | `[innerHTML]="section.content"`       | Yes                   |
+| `ListBlockComponent`      | `[innerHTML]="section.heading"`       | Yes                   |
+| `ListBlockComponent`      | `[innerHTML]="item"` (each list item) | Yes                   |
+| `ProjectsBlockComponent`  | `[innerHTML]="project.description"`   | Yes (already present) |
+
+> **Completed May 20, 2026.** All `[innerHTML]` bindings audited and `SafeHtmlPipe` applied at creation time for each leaf component. Non-null assertions (`!`) required inside `@if` guards — Angular strict template checking does not narrow signal return types.
 
 ---
 

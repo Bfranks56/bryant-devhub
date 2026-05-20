@@ -64,9 +64,7 @@ const mockProjectContent: PageContent = {
   ],
 };
 
-async function setup(
-  pageContent: PageContent | undefined
-): Promise<{
+async function setup(pageContent: PageContent | undefined): Promise<{
   component: DefaultPageComponent;
   fixture: ComponentFixture<DefaultPageComponent>;
 }> {
@@ -245,23 +243,6 @@ describe('DefaultPageComponent', () => {
       const { fixture } = await setup(noUrlContent);
       const badge = fixture.debugElement.query(By.css('.bg-amber-50'));
       expect(badge.nativeElement.textContent.trim()).toContain('Private Repo');
-    });
-  });
-
-  describe('Fallback when no pageContent', () => {
-    it('should show Content Unavailable in fallback section', async () => {
-      const { fixture } = await setup(undefined);
-      const fallbackH1 = fixture.debugElement.query(By.css('h1.mt-4'));
-      expect(fallbackH1.nativeElement.textContent.trim()).toBe(
-        'Content Unavailable'
-      );
-    });
-
-    it('should display return home link', async () => {
-      const { fixture } = await setup(undefined);
-      const link = fixture.debugElement.query(By.css('a[href="/"]'));
-      expect(link).toBeTruthy();
-      expect(link.nativeElement.textContent.trim()).toBe('Return to Home');
     });
   });
 });

@@ -44,8 +44,7 @@ export class ContentService {
     });
   }
 
-  /** Temporary: combined single-page view used by DefaultPageComponent until
-   *  Issue #1 (routing) replaces this with per-page route components. */
+  /** Single scrollable page — fragment routing replaces separate route components (Issue #1). */
   getLandingContent(): Signal<PageContent> {
     return signal({
       title: 'Bryant Franks',
@@ -56,6 +55,10 @@ export class ContentService {
         { value: '6+', label: 'Years Angular' },
         { value: 'Angular', label: '+ Spring Boot' },
         { value: 'Ford', label: 'Motor Co. (Current)', spanFull: true },
+      ],
+      ctas: [
+        { label: 'See My Work', fragment: 'projects', variant: 'primary' },
+        { label: 'Get In Touch', fragment: 'contact', variant: 'secondary' },
       ],
       sections: [
         ...HOME_SECTIONS,
