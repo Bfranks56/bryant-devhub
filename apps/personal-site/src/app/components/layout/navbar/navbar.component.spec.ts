@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
 import { NavbarComponent } from './navbar.component';
 import { By } from '@angular/platform-browser';
 
@@ -9,6 +10,7 @@ describe('NavbarComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [NavbarComponent],
+      providers: [provideRouter([])],
     }).compileComponents();
 
     fixture = TestBed.createComponent(NavbarComponent);
@@ -22,7 +24,7 @@ describe('NavbarComponent', () => {
 
   it('should render nav buttons', () => {
     const buttonElements = fixture.debugElement.queryAll(
-      By.css('nav[aria-label="Main"] button')
+      By.css('nav[aria-label="Main"] button, nav[aria-label="Main"] a')
     );
     const buttonTexts = buttonElements.map(el =>
       el.nativeElement.textContent.trim()

@@ -1,0 +1,6 @@
+<div class="mb-12 text-center max-w-4xl mx-auto">
+  @if (section().heading) {
+  <h3 class="text-3xl font-semibold mb-6 text-gray-900" [innerHTML]="section().heading! | safeHtml"></h3>
+  }
+  <p class="text-xl text-gray-700 leading-relaxed" [innerHTML]="section().content | safeHtml"></p>
+</div>

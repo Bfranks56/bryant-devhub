@@ -1,0 +1,22 @@
+<section [id]="section().id" [class]="'py-20 lg:py-24 ' + (index() % 2 === 0 ? 'bg-white' : 'bg-gray-50')">
+  <!-- Section Header -->
+  <div class="mx-auto max-w-6xl px-6 mb-16">
+    <div class="text-center max-w-3xl mx-auto">
+      <h2 class="text-5xl lg:text-6xl font-bold mb-6 text-gray-900">
+        {{ section().heading }}
+      </h2>
+      @if (section().subtitle) {
+      <h3 class="text-2xl lg:text-3xl font-light text-gray-600 mb-8">
+        {{ section().subtitle }}
+      </h3>
+      }
+    </div>
+  </div>
+
+  <!-- Section Content -->
+  <div class="mx-auto max-w-6xl px-6">
+    @for (content of section().content; track $index) {
+    <app-content-block [content]="content" />
+    }
+  </div>
+</section>

@@ -3,6 +3,13 @@ import {
   PageSection,
 } from '../../shared/interfaces/pageContent/content.dto';
 
+export const CONTACT_INFO: ContactInfo = {
+  email: 'bryant.franks@gmail.com',
+  github: 'https://github.com/Bfranks56',
+  linkedin: 'https://www.linkedin.com/in/bryantfranks/',
+  location: 'Royal Oak, MI',
+};
+
 export const CONTACT_SECTIONS: PageSection[] = [
   {
     id: 'contact',
@@ -20,13 +27,7 @@ export const CONTACT_SECTIONS: PageSection[] = [
         content:
           'I typically respond to emails within 24 hours and am always excited to discuss new opportunities or technical challenges.',
       },
+      { type: 'contact', info: CONTACT_INFO },
     ],
   },
 ];
-
-export const CONTACT_INFO: ContactInfo = {
-  email: 'bryant.franks@gmail.com',
-  github: 'https://github.com/Bfranks56',
-  linkedin: 'https://www.linkedin.com/in/bryantfranks/',
-  location: 'Royal Oak, MI',
-};

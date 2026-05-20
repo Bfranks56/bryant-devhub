@@ -1,6 +1,6 @@
 <header class="border-b bg-white/70 backdrop-blur">
   <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
-    <a class="text-lg font-semibold tracking-tight" href="/">Bryant.dev</a>
+    <button class="text-lg font-semibold tracking-tight cursor-pointer" (click)="goHome()">Bryant.dev</button>
 
     <button
       class="sm:hidden inline-flex items-center rounded-md border px-3 py-2 text-sm"
@@ -11,10 +11,10 @@
     </button>
 
     <nav class="hidden gap-6 sm:flex" aria-label="Main">
-      <button class="hover:underline cursor-pointer" (click)="scrollToTop()">Home</button>
-      <button class="hover:underline cursor-pointer" (click)="scrollToSection('about')">About</button>
-      <button class="hover:underline cursor-pointer" (click)="scrollToSection('projects')">Projects</button>
-      <button class="hover:underline cursor-pointer" (click)="scrollToSection('contact')">Contact Me</button>
+      <button class="hover:underline cursor-pointer" (click)="goHome()">Home</button>
+      <a class="hover:underline" [routerLink]="['/']" [fragment]="'about'">About</a>
+      <a class="hover:underline" [routerLink]="['/']" [fragment]="'projects'">Projects</a>
+      <a class="hover:underline" [routerLink]="['/']" [fragment]="'contact'">Contact Me</a>
     </nav>
   </div>
 
@@ -22,10 +22,10 @@
   @if (open()) {
   <nav class="sm:hidden border-t" aria-label="Mobile">
     <div class="mx-auto max-w-6xl px-4 py-2 grid gap-2">
-      <button class="cursor-pointer" (click)="scrollToTop()">Home</button>
-      <button class="cursor-pointer" (click)="scrollToSection('about')">About</button>
-      <button class="cursor-pointer" (click)="scrollToSection('projects')">Projects</button>
-      <button class="cursor-pointer" (click)="scrollToSection('contact')">Contact Me</button>
+      <button class="cursor-pointer" (click)="goHome()">Home</button>
+      <a [routerLink]="['/']" [fragment]="'about'" (click)="closeMenu()">About</a>
+      <a [routerLink]="['/']" [fragment]="'projects'" (click)="closeMenu()">Projects</a>
+      <a [routerLink]="['/']" [fragment]="'contact'" (click)="closeMenu()">Contact Me</a>
     </div>
   </nav>
   }
