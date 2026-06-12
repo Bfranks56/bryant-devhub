@@ -92,7 +92,7 @@ Ordered by dependency and MVP impact. Each step unblocks the next.
 | **4**  | #9    | Move hardcoded contact data into content files (done in same pass as #2)                                        | `[x] Done — May 20, 2026` |
 | **5**  | #3    | `SafeHtmlPipe` audit — enforce consistently across all new leaf components                                      | `[x] Done — May 20, 2026` |
 | **6**  | #1    | Fragment routing — `withInMemoryScrolling` + anchor nav on single `/` route (replaces separate page components) | `[x] Done — May 20, 2026` |
-| **7**  | #10   | 404 route — replace wildcard redirect with `NotFoundComponent`                                                  | `[ ] Todo`                |
+| **7**  | #10   | 404 route — replace wildcard redirect with `NotFoundComponent`                                                  | `[x] Done — Jun 12, 2026` |
 | **8**  | #12   | Visual redesign — replace cookie-cutter Tailwind aesthetic with a distinct personal style                       | `[ ] Todo`                |
 | **9**  | #13   | Unit tests — 80% coverage enforced via SonarCloud quality gate                                                  | `[ ] Post-MVP`            |
 | **10** | #14   | CI/CD pipeline — GitHub Actions + SonarCloud with quality gate on PRs                                           | `[ ] Post-MVP`            |

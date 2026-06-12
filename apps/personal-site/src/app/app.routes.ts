@@ -8,5 +8,11 @@ export const appRoutes: Route[] = [
         c => c.DefaultPageComponent
       ),
   },
-  { path: '**', redirectTo: '' },
+  {
+    path: '**',
+    loadComponent: () =>
+      import('./pages/not-found/not-found.component').then(
+        c => c.NotFoundComponent
+      ),
+  },
 ];
