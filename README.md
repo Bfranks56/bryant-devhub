@@ -54,8 +54,6 @@ export type ContentSection =
   | ContactSection;
 ```
 
-See [`ARCHITECTURE_REFACTOR.md`](apps/personal-site/ARCHITECTURE_REFACTOR.md) for full issue tracker.
-
 ```mermaid
 flowchart TD
     subgraph DATA["📁 content/page-copy/"]
